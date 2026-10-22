@@ -451,22 +451,37 @@ public class AbstractService {
     
     protected void applyQueryFilters(FilterRequest filterRequest, SQLSelect select) throws SystemException {
     	// To be implemented in each concrete class
+        if (filterRequest == null || select == null) {
+            throw new IllegalArgumentException("Cannot apply query filter on an empty filterRequest or empty select");
+        }
     }
     
     protected void applyNavigationalFilters(FilterRequest filterRequest, SQLSelect select) throws SystemException {
     	// To be implemented in each concrete class
+    	if (filterRequest == null || select == null) {
+            throw new IllegalArgumentException("Cannot apply query navigational filter on an empty filterRequest or empty select");
+        }
     }
     
     protected void applyServiceSIFilters(FilterRequest filterRequest, SQLSelect select) {
     	// To be implemented in each concrete class
+        if (filterRequest == null || select == null) {
+            throw new IllegalArgumentException("Cannot apply SI filter on an empty filterRequest or empty select");
+        }
     }
 
     protected void applyHVFilter(SQLSelect select) throws SystemException {
         // To be implemented in each concrete class
+        if (select == null) {
+            throw new IllegalArgumentException("Cannot apply HV filter on an empty select");
+        }
     }
     
     protected void applyOrderCriteria(QueryRequest queryRequest, SQLSelect select) {
     	// To be implemented in each concrete class
+        if (queryRequest == null || select == null) {
+            throw new IllegalArgumentException("Cannot apply order criteria on an empty queryRequest or empty select");
+        }
     }
     
     protected void applyDSItemSort(QueryRequest queryRequest, SQLSelect select) {
