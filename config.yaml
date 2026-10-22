@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ae-config
+data:
+# Use this configuration if all microservices use the same database
+  ae-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+# Use this configuration if microservice ae-apigateway uses its own database
+  ae-apigateway-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-apigateway-url: 'https://ae:8080'
+# Use this configuration if microservice ae-usuarios uses its own database
+  ae-usuarios-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-usuarios-url: 'https://ae-usuarios:8081'
+# Use this configuration if microservice ae-configuraciones uses its own database
+  ae-configuraciones-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-configuraciones-url: 'https://ae-configuraciones:8082'
+# Use this configuration if microservice ae-reportes uses its own database
+  ae-reportes-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-reportes-url: 'https://ae-reportes:8083'
+# Use this configuration if microservice ae-firmas uses its own database
+  ae-firmas-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-firmas-url: 'https://ae-firmas:8084'
+# Use this configuration if microservice ae-personas uses its own database
+  ae-personas-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-personas-url: 'https://ae-personas:8085'
+# Use this configuration if microservice ae-solicitudes uses its own database
+  ae-solicitudes-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-solicitudes-url: 'https://ae-solicitudes:8086'
+# Use this configuration if microservice ae-novedades uses its own database
+  ae-novedades-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-novedades-url: 'https://ae-novedades:8087'
+# Use this configuration if microservice ae-generasolicitud uses its own database
+  ae-generasolicitud-database-jdbc-url: 'jdbc:oracle:thin:@localhost:1521/ORCL'
+  ae-generasolicitud-url: 'https://ae-generasolicitud:8088'

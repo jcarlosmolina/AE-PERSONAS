@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ae-personas
+  annotations:
+    haproxy.router.openshift.io/timeout: "3m"
+  labels:
+    app: ae-personas
+    app.kubernetes.io/component: ae-personas
+    app.kubernetes.io/instance: ae-personas
+    app.kubernetes.io/name: ae-personas
+    app.kubernetes.io/part-of: ae-app
+    app.openshift.io/runtime: ae-personas
+spec:
+  host: ae-personas-${NAMESPACE}.${DOMAIN}
+  to:
+    kind: Service
+    name: ae-personas
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow

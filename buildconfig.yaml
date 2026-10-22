@@ -1,0 +1,28 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: ae-personas
+  labels:
+    app: ae-personas
+    app.kubernetes.io/component: ae-personas
+    app.kubernetes.io/instance: ae-personas
+    app.kubernetes.io/name: ae-personas
+    app.kubernetes.io/part-of: ae-app
+    app.openshift.io/runtime: ae-personas
+spec:
+  source:
+    type: Git
+    git:
+# Replace the placeholder below with the name of your GitHub username
+      uri: "git@github.com:${GitHubUserName}/ae-personas.git"
+# Uncomment and adapt the line below if you need to reference a specific branch in the repository above
+#      ref: "main"
+# Uncomment and adapt the two lines below if you need to use credentials to access the (private) repository above
+#    sourceSecret:
+#      name: ae-personas-git-credentials
+  strategy:
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ae-personas:latest
