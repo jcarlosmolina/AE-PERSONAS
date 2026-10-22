@@ -64,6 +64,7 @@ import com.keralty.aepersonas.sqlutils.SQLWhereOperandLiteral;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandOVParameter;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathAttribute;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathInstance;
+import com.keralty.aepersonas.utils.Utilities;
 import com.keralty.aepersonas.viewmodel.FilterRequest;
 import com.keralty.aepersonas.viewmodel.FilterVariableRequest;
 import com.keralty.aepersonas.viewmodel.InstanceResponseViewModel;
@@ -2426,7 +2427,7 @@ public class UsuarioService extends AbstractService {
         Usuario instance = usuarioTMODIFICARpthisUsuario;
 
         /* Action 1: IF (NumIdentificacion <> ptpNumIdentificacion OR TipoIdentificacion <> ptpevcTipoIdentificacion) */
-        boolean ifCondition1 = !(usuarioTMODIFICARpthisUsuario.getUsuarioNumIdentificacion()).equals(usuarioTMODIFICARptpNumIdentificacion) || !(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion().equalsObject(usuarioTMODIFICARptpevcTipoIdentificacion));
+        boolean ifCondition1 = !(usuarioTMODIFICARpthisUsuario.getUsuarioNumIdentificacion()).equals(usuarioTMODIFICARptpNumIdentificacion) || !Utilities.isEqual(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion(), usuarioTMODIFICARptpevcTipoIdentificacion);
         if (ifCondition1) {
             com.keralty.aepersonas.viewmodel.usuario.siu.ModificarRequest step10Request = new com.keralty.aepersonas.viewmodel.usuario.siu.ModificarRequest();
             step10Request.setUsuariomodificarpthisUsuarioInstance(usuarioTMODIFICARpthisUsuario);
@@ -2438,7 +2439,7 @@ public class UsuarioService extends AbstractService {
             step10Request.setUsuariomodificarpSegundoApellido(usuarioTMODIFICARptpSegundoApellido);
             usuarioSrv.modificarImplementation(step10Request);
             /* Action 11: IF (TipoIdentificacion <> ptpevcTipoIdentificacion) */
-            boolean ifCondition11 = !(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion().equalsObject(usuarioTMODIFICARptpevcTipoIdentificacion));
+            boolean ifCondition11 = !Utilities.isEqual(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion(), usuarioTMODIFICARptpevcTipoIdentificacion);
             if (ifCondition11) {
                 com.keralty.aepersonas.viewmodel.usuario.siu.CambTipoIdUsuarioRequest step110Request = new com.keralty.aepersonas.viewmodel.usuario.siu.CambTipoIdUsuarioRequest();
                 step110Request.setUsuarioCambTipoIdUsuariopthisUsuarioInstance(usuarioTMODIFICARpthisUsuario);
@@ -2463,7 +2464,7 @@ public class UsuarioService extends AbstractService {
             step13Request.setUsuariomodificarpSegundoApellido(usuarioTMODIFICARptpSegundoApellido);
             usuarioSrv.modificarImplementation(step13Request);
             /* Action 14: IF (TipoIdentificacion <> ptpevcTipoIdentificacion) */
-            boolean ifCondition14 = !(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion().equalsObject(usuarioTMODIFICARptpevcTipoIdentificacion));
+            boolean ifCondition14 = !Utilities.isEqual(usuarioTMODIFICARpthisUsuario.getTipoIdentificacion(), usuarioTMODIFICARptpevcTipoIdentificacion);
             if (ifCondition14) {
                 com.keralty.aepersonas.viewmodel.usuario.siu.CambTipoIdUsuarioRequest step140Request = new com.keralty.aepersonas.viewmodel.usuario.siu.CambTipoIdUsuarioRequest();
                 step140Request.setUsuarioCambTipoIdUsuariopthisUsuarioInstance(usuarioTMODIFICARpthisUsuario);
@@ -2484,7 +2485,7 @@ public class UsuarioService extends AbstractService {
                 usuarioSrv.insParentescoUsuarioImplementation(step200Request, true);
             } else {
                 /* Action 201: IF (Parentesco <> fugetParentescoTitular()) */
-                boolean ifCondition201 = !(usuarioTMODIFICARpthisUsuario.getParentesco().equalsObject(userFunctionsSrv.fugetParentescoTitularFun()));
+                boolean ifCondition201 = !Utilities.isEqual(usuarioTMODIFICARpthisUsuario.getParentesco(), userFunctionsSrv.fugetParentescoTitularFun());
                 if (ifCondition201) {
                     com.keralty.aepersonas.viewmodel.usuario.siu.DelParentescorUsuarioRequest step2010Request = new com.keralty.aepersonas.viewmodel.usuario.siu.DelParentescorUsuarioRequest();
                     step2010Request.setUsuarioDelParentescorUsuariopthisAttrUsuarioInstance(usuarioTMODIFICARpthisUsuario);
@@ -2610,7 +2611,7 @@ public class UsuarioService extends AbstractService {
         }
 
         /* Action 5: IF (EXIST (Companyia) = true AND ptpevcCompanyia <> NULL AND Companyia <> ptpevcCompanyia) */
-        boolean ifCondition5 = repository.assocOperator049(usuarioTMODIFICARATTRpthisAttrUsuario).equals(true) && (usuarioTMODIFICARATTRptpevcCompanyia != null && !usuarioTMODIFICARATTRptpevcCompanyia.isNull()) && !(usuarioTMODIFICARATTRpthisAttrUsuario.getCompanyia().equalsObject(usuarioTMODIFICARATTRptpevcCompanyia));
+        boolean ifCondition5 = repository.assocOperator049(usuarioTMODIFICARATTRpthisAttrUsuario).equals(true) && (usuarioTMODIFICARATTRptpevcCompanyia != null && !usuarioTMODIFICARATTRptpevcCompanyia.isNull()) && !Utilities.isEqual(usuarioTMODIFICARATTRpthisAttrUsuario.getCompanyia(), usuarioTMODIFICARATTRptpevcCompanyia);
         if (ifCondition5) {
             com.keralty.aepersonas.viewmodel.usuario.siu.DelCompanyiaUsuarioRequest step50Request = new com.keralty.aepersonas.viewmodel.usuario.siu.DelCompanyiaUsuarioRequest();
             step50Request.setUsuarioDelCompanyiaUsuariopthisAttrUsuarioInstance(usuarioTMODIFICARATTRpthisAttrUsuario);
@@ -2631,7 +2632,7 @@ public class UsuarioService extends AbstractService {
             usuarioSrv.insEPSUsuarioImplementation(step60Request, true);
         } else {
             /* Action 61: IF (Eps <> ptpevcEPS) */
-            boolean ifCondition61 = !(usuarioTMODIFICARATTRpthisAttrUsuario.getEps().equalsObject(usuarioTMODIFICARATTRptpevcEPS));
+            boolean ifCondition61 = !Utilities.isEqual(usuarioTMODIFICARATTRpthisAttrUsuario.getEps(), usuarioTMODIFICARATTRptpevcEPS);
             if (ifCondition61) {
                 com.keralty.aepersonas.viewmodel.usuario.siu.DelEPSUsuarioRequest step610Request = new com.keralty.aepersonas.viewmodel.usuario.siu.DelEPSUsuarioRequest();
                 step610Request.setUsuarioDelEPSUsuariopthisAttrUsuarioInstance(usuarioTMODIFICARATTRpthisAttrUsuario);
@@ -2653,7 +2654,7 @@ public class UsuarioService extends AbstractService {
             usuarioSrv.insParentescoUsuarioImplementation(step70Request, true);
         } else {
             /* Action 71: IF (Parentesco <> ptpevcParentesco) */
-            boolean ifCondition71 = !(usuarioTMODIFICARATTRpthisAttrUsuario.getParentesco().equalsObject(usuarioTMODIFICARATTRptpevcParentesco));
+            boolean ifCondition71 = !Utilities.isEqual(usuarioTMODIFICARATTRpthisAttrUsuario.getParentesco(), usuarioTMODIFICARATTRptpevcParentesco);
             if (ifCondition71) {
                 com.keralty.aepersonas.viewmodel.usuario.siu.DelParentescorUsuarioRequest step710Request = new com.keralty.aepersonas.viewmodel.usuario.siu.DelParentescorUsuarioRequest();
                 step710Request.setUsuarioDelParentescorUsuariopthisAttrUsuarioInstance(usuarioTMODIFICARATTRpthisAttrUsuario);
@@ -2747,7 +2748,7 @@ public class UsuarioService extends AbstractService {
         Parentesco usuarioTMODIFICARATTRptpevcParentesco = request.getUsuarioTMODIFICARATTRptpevcParentescoInstance();
         Usuario usuarioTMODIFICARATTRpthisAttrUsuario = request.getUsuarioTMODIFICARATTRpthisAttrUsuarioInstance();
         try {
-            boolean preconditionHolds = repository.assocOperator034(usuarioTMODIFICARATTRpthisAttrUsuario).equals(false) || usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTitularTitularConBeneficios().equals(false) || (usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTipoIdentificacion().equalsObject(usuarioTMODIFICARATTRpthisAttrUsuario.getTipoIdentificacion()) && (usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTitularNumIdentificacion()).equals(usuarioTMODIFICARATTRpthisAttrUsuario.getUsuarioNumIdentificacion())) || usuarioTMODIFICARATTRptpevcParentesco.getParentescoEsTitular().equals(false);
+            boolean preconditionHolds = repository.assocOperator034(usuarioTMODIFICARATTRpthisAttrUsuario).equals(false) || usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTitularTitularConBeneficios().equals(false) || (Utilities.isEqual(usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTipoIdentificacion(), usuarioTMODIFICARATTRpthisAttrUsuario.getTipoIdentificacion()) && (usuarioTMODIFICARATTRpthisAttrUsuario.getSolicitud().getTitular().getTitularNumIdentificacion()).equals(usuarioTMODIFICARATTRpthisAttrUsuario.getUsuarioNumIdentificacion())) || usuarioTMODIFICARATTRptpevcParentesco.getParentescoEsTitular().equals(false);
             if (!preconditionHolds) throw new PreconditionException("Si el titular tiene marcado el check de titular con benerficios, a ningún otro usuario se le puede poner el parentesco titular");
         } catch (SystemException e) {
             LoggerFactory.getLogger(this.getClass()).error(e.getMessage());
@@ -2895,7 +2896,7 @@ public class UsuarioService extends AbstractService {
         usuarioSrv.tMODIFICARImplementation(step2Request);
 
         /* Action 3: IF (Solicitud.ContratantePersona = UsuarioPersona) */
-        boolean ifCondition3 = usuarioTMODUSUARIOpthisUsuario.getSolicitud().getContratantePersona().equalsObject(usuarioTMODUSUARIOpthisUsuario.getUsuarioPersona());
+        boolean ifCondition3 = Utilities.isEqual(usuarioTMODUSUARIOpthisUsuario.getSolicitud().getContratantePersona(), usuarioTMODUSUARIOpthisUsuario.getUsuarioPersona());
         if (ifCondition3) {
             com.keralty.aepersonas.viewmodel.solicitud.siu.TCREAROMODCONTRATANTERequest step30Request = new com.keralty.aepersonas.viewmodel.solicitud.siu.TCREAROMODCONTRATANTERequest();
             step30Request.setSolicitudTCREAROMODCONTRATANTEpthisSolicitudInstance(usuarioTMODUSUARIOpthisUsuario.getSolicitud());
@@ -3554,7 +3555,7 @@ public class UsuarioService extends AbstractService {
         }
 
         /* Action 4: IF (EXIST (EstadoBeneficiario) = true AND ptpevcEstadoBeneficiario <> NULL AND EstadoBeneficiario <> ptpevcEstadoBeneficiario) */
-        boolean ifCondition4 = repository.assocOperator068(usuarioTREGISTRARDATOSCOREpthisUsuario).equals(true) && (usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario != null && !usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario.isNull()) && !(usuarioTREGISTRARDATOSCOREpthisUsuario.getEstadoBeneficiario().equalsObject(usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario));
+        boolean ifCondition4 = repository.assocOperator068(usuarioTREGISTRARDATOSCOREpthisUsuario).equals(true) && (usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario != null && !usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario.isNull()) && !Utilities.isEqual(usuarioTREGISTRARDATOSCOREpthisUsuario.getEstadoBeneficiario(), usuarioTREGISTRARDATOSCOREptpevcEstadoBeneficiario);
         if (ifCondition4) {
             com.keralty.aepersonas.viewmodel.usuario.siu.DelEstadoBeneficiarioCORERequest step40Request = new com.keralty.aepersonas.viewmodel.usuario.siu.DelEstadoBeneficiarioCORERequest();
             step40Request.setUsuarioDelEstadoBeneficiarioCOREpthisUsuarioInstance(usuarioTREGISTRARDATOSCOREpthisUsuario);
@@ -3645,7 +3646,7 @@ public class UsuarioService extends AbstractService {
         boolean ifCondition3 = repository.assocOperator073(usuarioTACTDESDECOREpBeneficiarioC).equals(true);
         if (ifCondition3) {
             /* Action 30: IF (EstadoBeneficiario <> pBeneficiarioC.EstadoBeneficiarioC) */
-            boolean ifCondition30 = !(usuarioTACTDESDECOREpthisUsuario.getEstadoBeneficiario().equalsObject(usuarioTACTDESDECOREpBeneficiarioC.getEstadoBeneficiarioC()));
+            boolean ifCondition30 = !Utilities.isEqual(usuarioTACTDESDECOREpthisUsuario.getEstadoBeneficiario(), usuarioTACTDESDECOREpBeneficiarioC.getEstadoBeneficiarioC());
             if (ifCondition30) {
                 /* Action 300: IF (EXIST (EstadoBeneficiario) = true) */
                 boolean ifCondition300 = repository.assocOperator074(usuarioTACTDESDECOREpthisUsuario).equals(true);

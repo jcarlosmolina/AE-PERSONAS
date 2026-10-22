@@ -20,6 +20,7 @@ import com.keralty.aepersonas.sqlutils.SQLSelect;
 import com.keralty.aepersonas.sqlutils.SQLWhereComparison;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandLiteral;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathAttribute;
+import com.keralty.aepersonas.utils.Utilities;
 import com.keralty.aepersonas.viewmodel.FilterRequest;
 import com.keralty.aepersonas.viewmodel.FilterVariableRequest;
 import com.keralty.aepersonas.viewmodel.InstanceResponseViewModel;
@@ -731,7 +732,7 @@ public class AnexoMatService extends AbstractService {
         step1Request.setAnexoMatmodificarpNumCuotas(anexoMatTMODIFICARptpNumCuotas);
         anexoMatSrv.modificarImplementation(step1Request);
 
-        boolean guard2 = !(anexoMatTMODIFICARpthisAnexoMat.getInstitucionMaternal().equalsObject(anexoMatTMODIFICARptInstitucionMat));
+        boolean guard2 = !Utilities.isEqual(anexoMatTMODIFICARpthisAnexoMat.getInstitucionMaternal(), anexoMatTMODIFICARptInstitucionMat);
 
         if (guard2) {
             com.keralty.aepersonas.viewmodel.anexomat.siu.CambiarInsInstitucionMaternalRequest step2Request = new com.keralty.aepersonas.viewmodel.anexomat.siu.CambiarInsInstitucionMaternalRequest();

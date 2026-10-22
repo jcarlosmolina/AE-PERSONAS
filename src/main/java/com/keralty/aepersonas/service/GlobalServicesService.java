@@ -12,6 +12,7 @@ import com.keralty.aepersonas.persistence.Parentesco;
 import com.keralty.aepersonas.persistence.Solicitud;
 import com.keralty.aepersonas.persistence.TipoIdentificacion;
 import com.keralty.aepersonas.repository.GlobalServicesJpaRepository;
+import com.keralty.aepersonas.utils.Utilities;
 import com.keralty.aepersonas.viewmodel.ServiceResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -301,7 +302,7 @@ public class GlobalServicesService extends AbstractService {
             boolean ifCondition10 = tGADDUSUARIODECONTptptParaContratante.equals(true);
             if (ifCondition10) {
                 /* Action 100: IF (ptpagrSolicitud.Contratante.TipoIdentificacion <> ptpagrTipoIdentificacion OR ptpagrSolicitud.Contratante.NumIdentificacion <> ptpatrNumIdentificacion) */
-                boolean ifCondition100 = !(tGADDUSUARIODECONTptpagrSolicitud.getContratante().getTipoIdentificacion().equalsObject(tGADDUSUARIODECONTptpagrTipoIdentificacion)) || !(tGADDUSUARIODECONTptpagrSolicitud.getContratante().getContratanteNumIdentificacion()).equals(tGADDUSUARIODECONTptpatrNumIdentificacion);
+                boolean ifCondition100 = !Utilities.isEqual(tGADDUSUARIODECONTptpagrSolicitud.getContratante().getTipoIdentificacion(), tGADDUSUARIODECONTptpagrTipoIdentificacion) || !(tGADDUSUARIODECONTptpagrSolicitud.getContratante().getContratanteNumIdentificacion()).equals(tGADDUSUARIODECONTptpatrNumIdentificacion);
                 if (ifCondition100) {
                     com.keralty.aepersonas.viewmodel.persona.siu.TADDUSUARIODECONTASOCRequest step1000Request = new com.keralty.aepersonas.viewmodel.persona.siu.TADDUSUARIODECONTASOCRequest();
                     step1000Request.setPersonaTADDUSUARIODECONTASOCptpagrTipoIdentificacionInstance(tGADDUSUARIODECONTptpagrTipoIdentificacion);
@@ -336,7 +337,7 @@ public class GlobalServicesService extends AbstractService {
                 }
             } else {
                 /* Action 101: IF (ptpagrSolicitud.Titular.TipoIdentificacion <> ptpagrTipoIdentificacion OR ptpagrSolicitud.Titular.NumIdentificacion <> ptpatrNumIdentificacion) */
-                boolean ifCondition101 = !(tGADDUSUARIODECONTptpagrSolicitud.getTitular().getTipoIdentificacion().equalsObject(tGADDUSUARIODECONTptpagrTipoIdentificacion)) || !(tGADDUSUARIODECONTptpagrSolicitud.getTitular().getTitularNumIdentificacion()).equals(tGADDUSUARIODECONTptpatrNumIdentificacion);
+                boolean ifCondition101 = !Utilities.isEqual(tGADDUSUARIODECONTptpagrSolicitud.getTitular().getTipoIdentificacion(), tGADDUSUARIODECONTptpagrTipoIdentificacion) || !(tGADDUSUARIODECONTptpagrSolicitud.getTitular().getTitularNumIdentificacion()).equals(tGADDUSUARIODECONTptpatrNumIdentificacion);
                 if (ifCondition101) {
                     com.keralty.aepersonas.viewmodel.persona.siu.TADDUSUARIODECONTASOCRequest step1010Request = new com.keralty.aepersonas.viewmodel.persona.siu.TADDUSUARIODECONTASOCRequest();
                     step1010Request.setPersonaTADDUSUARIODECONTASOCptpagrTipoIdentificacionInstance(tGADDUSUARIODECONTptpagrTipoIdentificacion);

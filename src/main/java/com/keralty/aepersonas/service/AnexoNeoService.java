@@ -19,6 +19,7 @@ import com.keralty.aepersonas.sqlutils.SQLSelect;
 import com.keralty.aepersonas.sqlutils.SQLWhereComparison;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandLiteral;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathAttribute;
+import com.keralty.aepersonas.utils.Utilities;
 import com.keralty.aepersonas.viewmodel.FilterRequest;
 import com.keralty.aepersonas.viewmodel.FilterVariableRequest;
 import com.keralty.aepersonas.viewmodel.InstanceResponseViewModel;
@@ -713,7 +714,7 @@ public class AnexoNeoService extends AbstractService {
         step1Request.setAnexoNeomodificarpNumCuotas(anexoNeoTMODIFICARptpNumCuotas);
         anexoNeoSrv.modificarImplementation(step1Request);
 
-        boolean guard2 = !(anexoNeoTMODIFICARpthisAnexoNeo.getInstitucionNeonatal().equalsObject(anexoNeoTMODIFICARptInstitucionNeo));
+        boolean guard2 = !Utilities.isEqual(anexoNeoTMODIFICARpthisAnexoNeo.getInstitucionNeonatal(), anexoNeoTMODIFICARptInstitucionNeo);
 
         if (guard2) {
             com.keralty.aepersonas.viewmodel.anexoneo.siu.CambiarInsInstitucionNeonatalRequest step2Request = new com.keralty.aepersonas.viewmodel.anexoneo.siu.CambiarInsInstitucionNeonatalRequest();

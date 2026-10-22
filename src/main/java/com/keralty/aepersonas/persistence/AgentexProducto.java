@@ -15,6 +15,7 @@ import com.keralty.aepersonas.persistence.oid.AgentexProductoOid;
 import com.keralty.aepersonas.persistence.oid.AsesorOid;
 import com.keralty.aepersonas.persistence.oid.DominioOid;
 import com.keralty.aepersonas.persistence.oid.ProductosOid;
+import com.keralty.aepersonas.utils.Utilities;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -705,7 +706,7 @@ public class AgentexProducto extends AbstractAppEntity {
             Asesor = agent OR Asesor.CodJefe = Agent.Usuario
             */
             try {
-                if (this.getAsesor().equalsObject(agentInstance) || (this.getAsesor().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
+                if (Utilities.isEqual(this.getAsesor(), agentInstance) || (this.getAsesor().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
                     returnValue = true;
                 }
             } catch (Exception e) {

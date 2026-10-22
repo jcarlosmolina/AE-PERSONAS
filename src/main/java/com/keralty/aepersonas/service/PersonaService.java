@@ -3866,7 +3866,7 @@ public class PersonaService extends AbstractService {
         Persona instance = personaTMODCONTRATANTEpthisPersona;
 
         /* Action 1: IF (ptpCodigo <> NULL AND ptpevcTipoIdentificacion = TipoIdentificacion AND ptpNumIdentificacion = NumIdentificacion AND (ptpPrimerNombre <> PrimerNombre OR ptpSegundoNombre <> SegundoNombre OR ptpPrimerApellido <> PrimerApellido OR ptpSegundoApellido <> SegundoApellido OR ptpFechaNacimiento <> FechaNacimiento OR ptpGenero <> Genero OR ptpIndicadorExtranjero <> IndicadorExtranjero OR (ptpevcDepartamentoNac = NULL AND EXIST (DepartamentoNacimiento) = true) OR (ptpevcDepartamentoNac <> NULL AND EXIST (DepartamentoNacimiento) = false) OR (ptpevcDepartamentoNac <> NULL AND EXIST (DepartamentoNacimiento) = true AND ptpevcDepartamentoNac <> DepartamentoNacimiento) OR (ptpevcMunicipioNac = NULL AND EXIST (MunicipioNacimiento) = true) OR (ptpevcMunicipioNac <> NULL AND EXIST (MunicipioNacimiento) = false) OR (ptpevcMunicipioNac <> NULL AND EXIST (MunicipioNacimiento) = true AND ptpevcMunicipioNac <> MunicipioNacimiento))) */
-        boolean ifCondition1 = personaTMODCONTRATANTEptpCodigo != null && personaTMODCONTRATANTEptpevcTipoIdentificacion.equalsObject(personaTMODCONTRATANTEpthisPersona.getTipoIdentificacion()) && (personaTMODCONTRATANTEptpNumIdentificacion).equals(personaTMODCONTRATANTEpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODCONTRATANTEptpPrimerNombre,personaTMODCONTRATANTEpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpSegundoNombre,personaTMODCONTRATANTEpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpPrimerApellido,personaTMODCONTRATANTEpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpSegundoApellido,personaTMODCONTRATANTEpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpFechaNacimiento,personaTMODCONTRATANTEpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpGenero,personaTMODCONTRATANTEpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpIndicadorExtranjero,personaTMODCONTRATANTEpthisPersona.getPersonaIndicadorExtranjero()) || ((personaTMODCONTRATANTEptpevcDepartamentoNac == null || personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator024(personaTMODCONTRATANTEpthisPersona).equals(true)) || ((personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator025(personaTMODCONTRATANTEpthisPersona).equals(false)) || ((personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator026(personaTMODCONTRATANTEpthisPersona).equals(true) && !(personaTMODCONTRATANTEptpevcDepartamentoNac.equalsObject(personaTMODCONTRATANTEpthisPersona.getDepartamentoNacimiento()))) || ((personaTMODCONTRATANTEptpevcMunicipioNac == null || personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator027(personaTMODCONTRATANTEpthisPersona).equals(true)) || ((personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator028(personaTMODCONTRATANTEpthisPersona).equals(false)) || ((personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator029(personaTMODCONTRATANTEpthisPersona).equals(true) && !(personaTMODCONTRATANTEptpevcMunicipioNac.equalsObject(personaTMODCONTRATANTEpthisPersona.getMunicipioNacimiento()))));
+        boolean ifCondition1 = personaTMODCONTRATANTEptpCodigo != null && Utilities.isEqual(personaTMODCONTRATANTEptpevcTipoIdentificacion, personaTMODCONTRATANTEpthisPersona.getTipoIdentificacion()) && (personaTMODCONTRATANTEptpNumIdentificacion).equals(personaTMODCONTRATANTEpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODCONTRATANTEptpPrimerNombre,personaTMODCONTRATANTEpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpSegundoNombre,personaTMODCONTRATANTEpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpPrimerApellido,personaTMODCONTRATANTEpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpSegundoApellido,personaTMODCONTRATANTEpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpFechaNacimiento,personaTMODCONTRATANTEpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpGenero,personaTMODCONTRATANTEpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODCONTRATANTEptpIndicadorExtranjero,personaTMODCONTRATANTEpthisPersona.getPersonaIndicadorExtranjero()) || ((personaTMODCONTRATANTEptpevcDepartamentoNac == null || personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator024(personaTMODCONTRATANTEpthisPersona).equals(true)) || ((personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator025(personaTMODCONTRATANTEpthisPersona).equals(false)) || ((personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && repository.assocOperator026(personaTMODCONTRATANTEpthisPersona).equals(true) && !Utilities.isEqual(personaTMODCONTRATANTEptpevcDepartamentoNac, personaTMODCONTRATANTEpthisPersona.getDepartamentoNacimiento())) || ((personaTMODCONTRATANTEptpevcMunicipioNac == null || personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator027(personaTMODCONTRATANTEpthisPersona).equals(true)) || ((personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator028(personaTMODCONTRATANTEpthisPersona).equals(false)) || ((personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && repository.assocOperator029(personaTMODCONTRATANTEpthisPersona).equals(true) && !Utilities.isEqual(personaTMODCONTRATANTEptpevcMunicipioNac, personaTMODCONTRATANTEpthisPersona.getMunicipioNacimiento())));
         if (ifCondition1) {
             com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest step1000Request = new com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest();
             step1000Request.setPersonamarcarDatosBasicosModpthisPersonaInstance(personaTMODCONTRATANTEpthisPersona);
@@ -3913,7 +3913,7 @@ public class PersonaService extends AbstractService {
             boolean ifCondition41 = (personaTMODCONTRATANTEptEstadoPersona != null && !personaTMODCONTRATANTEptEstadoPersona.isNull());
             if (ifCondition41) {
                 /* Action 410: IF (ptEstadoPersona <> EstadoPersona) */
-                boolean ifCondition410 = !(personaTMODCONTRATANTEptEstadoPersona.equalsObject(personaTMODCONTRATANTEpthisPersona.getEstadoPersona()));
+                boolean ifCondition410 = !Utilities.isEqual(personaTMODCONTRATANTEptEstadoPersona, personaTMODCONTRATANTEpthisPersona.getEstadoPersona());
                 if (ifCondition410) {
                     com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoPersonaRequest step4100Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoPersonaRequest();
                     step4100Request.setPersonaDelEstadoPersonapthisPersonaInstance(personaTMODCONTRATANTEpthisPersona);
@@ -3932,7 +3932,7 @@ public class PersonaService extends AbstractService {
             }
         }
 
-        boolean guard5 = !(personaTMODCONTRATANTEptpevcTipoIdentificacion.equalsObject(personaTMODCONTRATANTEpthisPersona.getTipoIdentificacion()));
+        boolean guard5 = !Utilities.isEqual(personaTMODCONTRATANTEptpevcTipoIdentificacion, personaTMODCONTRATANTEpthisPersona.getTipoIdentificacion());
 
         if (guard5) {
             com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest step5Request = new com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest();
@@ -3976,7 +3976,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 10: IF (EXIST (DepartamentoNacimiento) = true AND ptpevcDepartamentoNac <> NULL AND DepartamentoNacimiento <> ptpevcDepartamentoNac) */
-        boolean ifCondition10 = repository.assocOperator031(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && !(personaTMODCONTRATANTEpthisPersona.getDepartamentoNacimiento().equalsObject(personaTMODCONTRATANTEptpevcDepartamentoNac));
+        boolean ifCondition10 = repository.assocOperator031(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcDepartamentoNac != null && !personaTMODCONTRATANTEptpevcDepartamentoNac.isNull()) && !Utilities.isEqual(personaTMODCONTRATANTEpthisPersona.getDepartamentoNacimiento(), personaTMODCONTRATANTEptpevcDepartamentoNac);
         if (ifCondition10) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest step100Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest();
             step100Request.setPersonaDelDptoNacimientoPersonapthisPersonaInstance(personaTMODCONTRATANTEpthisPersona);
@@ -4007,7 +4007,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 13: IF (EXIST (MunicipioNacimiento) = true AND ptpevcMunicipioNac <> NULL AND MunicipioNacimiento <> ptpevcMunicipioNac) */
-        boolean ifCondition13 = repository.assocOperator032(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && !(personaTMODCONTRATANTEpthisPersona.getMunicipioNacimiento().equalsObject(personaTMODCONTRATANTEptpevcMunicipioNac));
+        boolean ifCondition13 = repository.assocOperator032(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcMunicipioNac != null && !personaTMODCONTRATANTEptpevcMunicipioNac.isNull()) && !Utilities.isEqual(personaTMODCONTRATANTEpthisPersona.getMunicipioNacimiento(), personaTMODCONTRATANTEptpevcMunicipioNac);
         if (ifCondition13) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest step130Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest();
             step130Request.setPersonaDelMunicipioNacimientoPersonapthisPersonaInstance(personaTMODCONTRATANTEpthisPersona);
@@ -4038,7 +4038,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 16: IF (EXIST (EstadoCivil) = true AND ptpevcEstadoCivil <> NULL AND EstadoCivil <> ptpevcEstadoCivil) */
-        boolean ifCondition16 = repository.assocOperator033(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcEstadoCivil != null && !personaTMODCONTRATANTEptpevcEstadoCivil.isNull()) && !(personaTMODCONTRATANTEpthisPersona.getEstadoCivil().equalsObject(personaTMODCONTRATANTEptpevcEstadoCivil));
+        boolean ifCondition16 = repository.assocOperator033(personaTMODCONTRATANTEpthisPersona).equals(true) && (personaTMODCONTRATANTEptpevcEstadoCivil != null && !personaTMODCONTRATANTEptpevcEstadoCivil.isNull()) && !Utilities.isEqual(personaTMODCONTRATANTEpthisPersona.getEstadoCivil(), personaTMODCONTRATANTEptpevcEstadoCivil);
         if (ifCondition16) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest step160Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest();
             step160Request.setPersonaDelEstadoCivilPersonapthisPersonaInstance(personaTMODCONTRATANTEpthisPersona);
@@ -4154,7 +4154,7 @@ public class PersonaService extends AbstractService {
         Persona instance = personaTMODUSUARIOpthisPersona;
 
         /* Action 1: IF (drvVieneDeCORE = true AND ptpevcTipoIdentificacion = TipoIdentificacion AND ptpNumIdentificacion = NumIdentificacion AND (ptpPrimerNombre <> PrimerNombre OR ptpSegundoNombre <> SegundoNombre OR ptpPrimerApellido <> PrimerApellido OR ptpSegundoApellido <> SegundoApellido OR ptpFechaNacimiento <> FechaNacimiento OR ptpGenero <> Genero OR ptpIndicadorExtranjero <> IndicadorExtranjero OR ptpevcDepartamentoNac <> DepartamentoNacimiento OR ptpevcMunicipioNac <> MunicipioNacimiento)) */
-        boolean ifCondition1 = personaTMODUSUARIOpthisPersona.getPersonadrvVieneDeCORE().equals(true) && personaTMODUSUARIOptpevcTipoIdentificacion.equalsObject(personaTMODUSUARIOpthisPersona.getTipoIdentificacion()) && (personaTMODUSUARIOptpNumIdentificacion).equals(personaTMODUSUARIOpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODUSUARIOptpPrimerNombre,personaTMODUSUARIOpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODUSUARIOptpSegundoNombre,personaTMODUSUARIOpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODUSUARIOptpPrimerApellido,personaTMODUSUARIOpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODUSUARIOptpSegundoApellido,personaTMODUSUARIOpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODUSUARIOptpFechaNacimiento,personaTMODUSUARIOpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODUSUARIOptpGenero,personaTMODUSUARIOpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODUSUARIOptpIndicadorExtranjero,personaTMODUSUARIOpthisPersona.getPersonaIndicadorExtranjero()) || !(personaTMODUSUARIOptpevcDepartamentoNac.equalsObject(personaTMODUSUARIOpthisPersona.getDepartamentoNacimiento())) || !(personaTMODUSUARIOptpevcMunicipioNac.equalsObject(personaTMODUSUARIOpthisPersona.getMunicipioNacimiento())));
+        boolean ifCondition1 = personaTMODUSUARIOpthisPersona.getPersonadrvVieneDeCORE().equals(true) && Utilities.isEqual(personaTMODUSUARIOptpevcTipoIdentificacion, personaTMODUSUARIOpthisPersona.getTipoIdentificacion()) && (personaTMODUSUARIOptpNumIdentificacion).equals(personaTMODUSUARIOpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODUSUARIOptpPrimerNombre,personaTMODUSUARIOpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODUSUARIOptpSegundoNombre,personaTMODUSUARIOpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODUSUARIOptpPrimerApellido,personaTMODUSUARIOpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODUSUARIOptpSegundoApellido,personaTMODUSUARIOpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODUSUARIOptpFechaNacimiento,personaTMODUSUARIOpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODUSUARIOptpGenero,personaTMODUSUARIOpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODUSUARIOptpIndicadorExtranjero,personaTMODUSUARIOpthisPersona.getPersonaIndicadorExtranjero()) || !Utilities.isEqual(personaTMODUSUARIOptpevcDepartamentoNac, personaTMODUSUARIOpthisPersona.getDepartamentoNacimiento()) || !Utilities.isEqual(personaTMODUSUARIOptpevcMunicipioNac, personaTMODUSUARIOpthisPersona.getMunicipioNacimiento()));
         if (ifCondition1) {
             com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest step1000Request = new com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest();
             step1000Request.setPersonamarcarDatosBasicosModpthisPersonaInstance(personaTMODUSUARIOpthisPersona);
@@ -4180,7 +4180,7 @@ public class PersonaService extends AbstractService {
         step2Request.setPersonamodificarpNumIdentificacion(personaTMODUSUARIOptpNumIdentificacion);
         personaSrv.modificarImplementation(step2Request);
 
-        boolean guard3 = !(personaTMODUSUARIOptpevcTipoIdentificacion.equalsObject(personaTMODUSUARIOpthisPersona.getTipoIdentificacion()));
+        boolean guard3 = !Utilities.isEqual(personaTMODUSUARIOptpevcTipoIdentificacion, personaTMODUSUARIOpthisPersona.getTipoIdentificacion());
 
         if (guard3) {
             com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest step3Request = new com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest();
@@ -4220,7 +4220,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 8: IF (EXIST (DepartamentoNacimiento) = true AND ptpevcDepartamentoNac <> NULL AND DepartamentoNacimiento <> ptpevcDepartamentoNac) */
-        boolean ifCondition8 = repository.assocOperator046(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcDepartamentoNac != null && !personaTMODUSUARIOptpevcDepartamentoNac.isNull()) && !(personaTMODUSUARIOpthisPersona.getDepartamentoNacimiento().equalsObject(personaTMODUSUARIOptpevcDepartamentoNac));
+        boolean ifCondition8 = repository.assocOperator046(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcDepartamentoNac != null && !personaTMODUSUARIOptpevcDepartamentoNac.isNull()) && !Utilities.isEqual(personaTMODUSUARIOpthisPersona.getDepartamentoNacimiento(), personaTMODUSUARIOptpevcDepartamentoNac);
         if (ifCondition8) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest step80Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest();
             step80Request.setPersonaDelDptoNacimientoPersonapthisPersonaInstance(personaTMODUSUARIOpthisPersona);
@@ -4251,7 +4251,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 11: IF (EXIST (MunicipioNacimiento) = true AND ptpevcMunicipioNac <> NULL AND MunicipioNacimiento <> ptpevcMunicipioNac) */
-        boolean ifCondition11 = repository.assocOperator047(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcMunicipioNac != null && !personaTMODUSUARIOptpevcMunicipioNac.isNull()) && !(personaTMODUSUARIOpthisPersona.getMunicipioNacimiento().equalsObject(personaTMODUSUARIOptpevcMunicipioNac));
+        boolean ifCondition11 = repository.assocOperator047(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcMunicipioNac != null && !personaTMODUSUARIOptpevcMunicipioNac.isNull()) && !Utilities.isEqual(personaTMODUSUARIOpthisPersona.getMunicipioNacimiento(), personaTMODUSUARIOptpevcMunicipioNac);
         if (ifCondition11) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest step110Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest();
             step110Request.setPersonaDelMunicipioNacimientoPersonapthisPersonaInstance(personaTMODUSUARIOpthisPersona);
@@ -4282,7 +4282,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 14: IF (EXIST (EstadoCivil) = true AND ptpevcEstadoCivil <> NULL AND EstadoCivil <> ptpevcEstadoCivil) */
-        boolean ifCondition14 = repository.assocOperator048(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcEstadoCivil != null && !personaTMODUSUARIOptpevcEstadoCivil.isNull()) && !(personaTMODUSUARIOpthisPersona.getEstadoCivil().equalsObject(personaTMODUSUARIOptpevcEstadoCivil));
+        boolean ifCondition14 = repository.assocOperator048(personaTMODUSUARIOpthisPersona).equals(true) && (personaTMODUSUARIOptpevcEstadoCivil != null && !personaTMODUSUARIOptpevcEstadoCivil.isNull()) && !Utilities.isEqual(personaTMODUSUARIOpthisPersona.getEstadoCivil(), personaTMODUSUARIOptpevcEstadoCivil);
         if (ifCondition14) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest step140Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest();
             step140Request.setPersonaDelEstadoCivilPersonapthisPersonaInstance(personaTMODUSUARIOpthisPersona);
@@ -4605,7 +4605,7 @@ public class PersonaService extends AbstractService {
         Persona instance = personaTMODTITULARpthisPersona;
 
         /* Action 1: IF (ptpCodigo <> NULL AND ptpevcTipoIdentificacion = TipoIdentificacion AND ptpNumIdentificacion = NumIdentificacion AND (ptpPrimerNombre <> PrimerNombre OR ptpSegundoNombre <> SegundoNombre OR ptpPrimerApellido <> PrimerApellido OR ptpSegundoApellido <> SegundoApellido OR ptpFechaNacimiento <> FechaNacimiento OR ptpGenero <> Genero OR ptpIndicadorExtranjero <> IndicadorExtranjero OR ptpevcDepartamentoNac <> DepartamentoNacimiento OR ptpevcMunicipioNac <> MunicipioNacimiento)) */
-        boolean ifCondition1 = personaTMODTITULARptpCodigo != null && personaTMODTITULARptpevcTipoIdentificacion.equalsObject(personaTMODTITULARpthisPersona.getTipoIdentificacion()) && (personaTMODTITULARptpNumIdentificacion).equals(personaTMODTITULARpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODTITULARptpPrimerNombre,personaTMODTITULARpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODTITULARptpSegundoNombre,personaTMODTITULARpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODTITULARptpPrimerApellido,personaTMODTITULARpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODTITULARptpSegundoApellido,personaTMODTITULARpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODTITULARptpFechaNacimiento,personaTMODTITULARpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODTITULARptpGenero,personaTMODTITULARpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODTITULARptpIndicadorExtranjero,personaTMODTITULARpthisPersona.getPersonaIndicadorExtranjero()) || !(personaTMODTITULARptpevcDepartamentoNac.equalsObject(personaTMODTITULARpthisPersona.getDepartamentoNacimiento())) || !(personaTMODTITULARptpevcMunicipioNac.equalsObject(personaTMODTITULARpthisPersona.getMunicipioNacimiento())));
+        boolean ifCondition1 = personaTMODTITULARptpCodigo != null && Utilities.isEqual(personaTMODTITULARptpevcTipoIdentificacion, personaTMODTITULARpthisPersona.getTipoIdentificacion()) && (personaTMODTITULARptpNumIdentificacion).equals(personaTMODTITULARpthisPersona.getPersonaNumIdentificacion()) && (!STDFunctions.areEqual(personaTMODTITULARptpPrimerNombre,personaTMODTITULARpthisPersona.getPersonaPrimerNombre()) || !STDFunctions.areEqual(personaTMODTITULARptpSegundoNombre,personaTMODTITULARpthisPersona.getPersonaSegundoNombre()) || !STDFunctions.areEqual(personaTMODTITULARptpPrimerApellido,personaTMODTITULARpthisPersona.getPersonaPrimerApellido()) || !STDFunctions.areEqual(personaTMODTITULARptpSegundoApellido,personaTMODTITULARpthisPersona.getPersonaSegundoApellido()) || !STDFunctions.areEqual(personaTMODTITULARptpFechaNacimiento,personaTMODTITULARpthisPersona.getPersonaFechaNacimiento()) || !STDFunctions.areEqual(personaTMODTITULARptpGenero,personaTMODTITULARpthisPersona.getPersonaGenero()) || !STDFunctions.areEqual(personaTMODTITULARptpIndicadorExtranjero,personaTMODTITULARpthisPersona.getPersonaIndicadorExtranjero()) || !Utilities.isEqual(personaTMODTITULARptpevcDepartamentoNac, personaTMODTITULARpthisPersona.getDepartamentoNacimiento()) || !Utilities.isEqual(personaTMODTITULARptpevcMunicipioNac, personaTMODTITULARpthisPersona.getMunicipioNacimiento()));
         if (ifCondition1) {
             com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest step1000Request = new com.keralty.aepersonas.viewmodel.persona.siu.MarcarDatosBasicosModRequest();
             step1000Request.setPersonamarcarDatosBasicosModpthisPersonaInstance(personaTMODTITULARpthisPersona);
@@ -4649,7 +4649,7 @@ public class PersonaService extends AbstractService {
             }
         } else {
             /* Action 41: IF (ptEstadoPersona <> EstadoPersona) */
-            boolean ifCondition41 = !(personaTMODTITULARptEstadoPersona.equalsObject(personaTMODTITULARpthisPersona.getEstadoPersona()));
+            boolean ifCondition41 = !Utilities.isEqual(personaTMODTITULARptEstadoPersona, personaTMODTITULARpthisPersona.getEstadoPersona());
             if (ifCondition41) {
                 com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoPersonaRequest step410Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoPersonaRequest();
                 step410Request.setPersonaDelEstadoPersonapthisPersonaInstance(personaTMODTITULARpthisPersona);
@@ -4666,7 +4666,7 @@ public class PersonaService extends AbstractService {
             }
         }
 
-        boolean guard5 = !(personaTMODTITULARptpevcTipoIdentificacion.equalsObject(personaTMODTITULARpthisPersona.getTipoIdentificacion()));
+        boolean guard5 = !Utilities.isEqual(personaTMODTITULARptpevcTipoIdentificacion, personaTMODTITULARpthisPersona.getTipoIdentificacion());
 
         if (guard5) {
             com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest step5Request = new com.keralty.aepersonas.viewmodel.persona.siu.CambTipoIdentificacionRequest();
@@ -4710,7 +4710,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 10: IF (EXIST (DepartamentoNacimiento) = true AND ptpevcDepartamentoNac <> NULL AND DepartamentoNacimiento <> ptpevcDepartamentoNac) */
-        boolean ifCondition10 = repository.assocOperator062(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcDepartamentoNac != null && !personaTMODTITULARptpevcDepartamentoNac.isNull()) && !(personaTMODTITULARpthisPersona.getDepartamentoNacimiento().equalsObject(personaTMODTITULARptpevcDepartamentoNac));
+        boolean ifCondition10 = repository.assocOperator062(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcDepartamentoNac != null && !personaTMODTITULARptpevcDepartamentoNac.isNull()) && !Utilities.isEqual(personaTMODTITULARpthisPersona.getDepartamentoNacimiento(), personaTMODTITULARptpevcDepartamentoNac);
         if (ifCondition10) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest step100Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelDptoNacimientoPersonaRequest();
             step100Request.setPersonaDelDptoNacimientoPersonapthisPersonaInstance(personaTMODTITULARpthisPersona);
@@ -4741,7 +4741,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 13: IF (EXIST (MunicipioNacimiento) = true AND ptpevcMunicipioNac <> NULL AND MunicipioNacimiento <> ptpevcMunicipioNac) */
-        boolean ifCondition13 = repository.assocOperator063(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcMunicipioNac != null && !personaTMODTITULARptpevcMunicipioNac.isNull()) && !(personaTMODTITULARpthisPersona.getMunicipioNacimiento().equalsObject(personaTMODTITULARptpevcMunicipioNac));
+        boolean ifCondition13 = repository.assocOperator063(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcMunicipioNac != null && !personaTMODTITULARptpevcMunicipioNac.isNull()) && !Utilities.isEqual(personaTMODTITULARpthisPersona.getMunicipioNacimiento(), personaTMODTITULARptpevcMunicipioNac);
         if (ifCondition13) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest step130Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelMunicipioNacimientoPersonaRequest();
             step130Request.setPersonaDelMunicipioNacimientoPersonapthisPersonaInstance(personaTMODTITULARpthisPersona);
@@ -4772,7 +4772,7 @@ public class PersonaService extends AbstractService {
         }
 
         /* Action 16: IF (EXIST (EstadoCivil) = true AND ptpevcEstadoCivil <> NULL AND EstadoCivil <> ptpevcEstadoCivil) */
-        boolean ifCondition16 = repository.assocOperator064(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcEstadoCivil != null && !personaTMODTITULARptpevcEstadoCivil.isNull()) && !(personaTMODTITULARpthisPersona.getEstadoCivil().equalsObject(personaTMODTITULARptpevcEstadoCivil));
+        boolean ifCondition16 = repository.assocOperator064(personaTMODTITULARpthisPersona).equals(true) && (personaTMODTITULARptpevcEstadoCivil != null && !personaTMODTITULARptpevcEstadoCivil.isNull()) && !Utilities.isEqual(personaTMODTITULARpthisPersona.getEstadoCivil(), personaTMODTITULARptpevcEstadoCivil);
         if (ifCondition16) {
             com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest step160Request = new com.keralty.aepersonas.viewmodel.persona.siu.DelEstadoCivilPersonaRequest();
             step160Request.setPersonaDelEstadoCivilPersonapthisPersonaInstance(personaTMODTITULARpthisPersona);
@@ -5400,7 +5400,7 @@ public class PersonaService extends AbstractService {
         Solicitud personaTADDUSUARIODECONTASOCptpagrSolicitud = request.getPersonaTADDUSUARIODECONTASOCptpagrSolicitudInstance();
         TipoIdentificacion personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion = request.getPersonaTADDUSUARIODECONTASOCptpagrTipoIdentificacionInstance();
         String personaTADDUSUARIODECONTASOCptpatrNumIdentificacion = request.getPersonaTADDUSUARIODECONTASOCptpatrNumIdentificacion();
-        boolean preconditionHolds = personaTADDUSUARIODECONTASOCptParaContratante.equals(false) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getContratante().getTipoIdentificacion().equalsObject(personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion)) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getContratante().getContratanteNumIdentificacion()).equals(personaTADDUSUARIODECONTASOCptpatrNumIdentificacion);
+        boolean preconditionHolds = personaTADDUSUARIODECONTASOCptParaContratante.equals(false) || !Utilities.isEqual(personaTADDUSUARIODECONTASOCptpagrSolicitud.getContratante().getTipoIdentificacion(), personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getContratante().getContratanteNumIdentificacion()).equals(personaTADDUSUARIODECONTASOCptpatrNumIdentificacion);
         if (!preconditionHolds) throw new PreconditionException("La persona seleccionada es el contratante de la solicitud");
     }
 
@@ -5413,7 +5413,7 @@ public class PersonaService extends AbstractService {
         Solicitud personaTADDUSUARIODECONTASOCptpagrSolicitud = request.getPersonaTADDUSUARIODECONTASOCptpagrSolicitudInstance();
         TipoIdentificacion personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion = request.getPersonaTADDUSUARIODECONTASOCptpagrTipoIdentificacionInstance();
         String personaTADDUSUARIODECONTASOCptpatrNumIdentificacion = request.getPersonaTADDUSUARIODECONTASOCptpatrNumIdentificacion();
-        boolean preconditionHolds = personaTADDUSUARIODECONTASOCptParaContratante.equals(true) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getTitular().getTipoIdentificacion().equalsObject(personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion)) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getTitular().getTitularNumIdentificacion()).equals(personaTADDUSUARIODECONTASOCptpatrNumIdentificacion);
+        boolean preconditionHolds = personaTADDUSUARIODECONTASOCptParaContratante.equals(true) || !Utilities.isEqual(personaTADDUSUARIODECONTASOCptpagrSolicitud.getTitular().getTipoIdentificacion(), personaTADDUSUARIODECONTASOCptpagrTipoIdentificacion) || !(personaTADDUSUARIODECONTASOCptpagrSolicitud.getTitular().getTitularNumIdentificacion()).equals(personaTADDUSUARIODECONTASOCptpatrNumIdentificacion);
         if (!preconditionHolds) throw new PreconditionException("La persona seleccionada es el titular de la solicitud");
     }
 

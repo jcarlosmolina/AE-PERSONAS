@@ -25,6 +25,7 @@ import com.keralty.aepersonas.repository.ObsEstadoJpaRepository;
 import com.keralty.aepersonas.repository.SolicitudJpaRepository;
 import com.keralty.aepersonas.service.RolService;
 import com.keralty.aepersonas.service.SucursalService;
+import com.keralty.aepersonas.utils.Utilities;
 import io.quarkus.arc.Arc;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -2921,7 +2922,7 @@ RADIO=1;
             agent = this OR Agent.Usuario = CodJefe
             */
             try {
-                if (agentInstance.equalsObject(this) || (agentInstance.getFuncionarioUsuario()).equals(this.getFuncionarioCodJefe())) {
+                if (Utilities.isEqual(agentInstance, this) || (agentInstance.getFuncionarioUsuario()).equals(this.getFuncionarioCodJefe())) {
                     returnValue = true;
                 }
             } catch (Exception e) {

@@ -16,6 +16,7 @@ import com.keralty.aepersonas.persistence.oid.SolicitudOid;
 import com.keralty.aepersonas.repository.ObsEstadoJpaRepository;
 import com.keralty.aepersonas.repository.PersonaJpaRepository;
 import com.keralty.aepersonas.repository.SolicitudJpaRepository;
+import com.keralty.aepersonas.utils.Utilities;
 import io.quarkus.arc.Arc;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -1153,7 +1154,7 @@ public class DocumentoG extends AbstractAppEntity {
             Solicitud.Agente = agent OR Solicitud.Agente.CodJefe = Agent.Usuario
             */
             try {
-                if (this.getSolicitud().getAgente().equalsObject(agentInstance) || (this.getSolicitud().getAgente().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
+                if (Utilities.isEqual(this.getSolicitud().getAgente(), agentInstance) || (this.getSolicitud().getAgente().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
                     returnValue = true;
                 }
             } catch (Exception e) {

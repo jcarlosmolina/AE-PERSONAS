@@ -1186,7 +1186,7 @@ public class UsuarioReg extends AbstractAppEntity {
             Solicitud.Agente = agent OR Solicitud.Agente.CodJefe = Agent.Usuario
             */
             try {
-                if (this.getSolicitud().getAgente().equalsObject(agentInstance) || (this.getSolicitud().getAgente().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
+                if (Utilities.isEqual(this.getSolicitud().getAgente(), agentInstance) || (this.getSolicitud().getAgente().getFuncionarioCodJefe()).equals(agentInstance.getFuncionarioUsuario())) {
                     returnValue = true;
                 }
             } catch (Exception e) {
