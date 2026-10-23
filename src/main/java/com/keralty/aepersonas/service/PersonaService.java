@@ -4361,7 +4361,7 @@ public class PersonaService extends AbstractService {
         Municipio personaTMODUSUARIOptpevcMunicipio = request.getPersonaTMODUSUARIOptpevcMunicipioInstance();
         Persona personaTMODUSUARIOpthisPersona = request.getPersonaTMODUSUARIOpthisPersonaInstance();
         try {
-            boolean preconditionHolds = repository.assocOperator005(personaTMODUSUARIOpthisPersona).equals(false) || personaTMODUSUARIOpthisPersona.getUsuarios().getEps().getEpsEpsSanitas().equals(false) || ((personaTMODUSUARIOptpevcMunicipio == null || personaTMODUSUARIOptpevcMunicipio.isNull()) || ((personaTMODUSUARIOptpevcMunicipio != null && !personaTMODUSUARIOptpevcMunicipio.isNull()) && personaTMODUSUARIOptpevcMunicipio.getMunicipioEsValidoEPS().equals(true)));
+            boolean preconditionHolds = repository.assocOperator005(personaTMODUSUARIOpthisPersona).equals(false) || personaTMODUSUARIOpthisPersona.getUsuarios().getEps().getEpsEpsSanitas().equals(false) || ((personaTMODUSUARIOptpevcMunicipio == null || personaTMODUSUARIOptpevcMunicipio.isNull()) || (personaTMODUSUARIOptpevcMunicipio.getMunicipioEsValidoEPS().equals(true)));
             if (!preconditionHolds) throw new PreconditionException("El municipio seleccionado en los datos de contacto no es válido para EPS Sanitas");
         } catch (SystemException e) {
             LoggerFactory.getLogger(this.getClass()).error(e.getMessage());

@@ -190,7 +190,11 @@ public class GlobalServicesService extends AbstractService {
 			EstadoPersona estadoPersona = null;
 			// Cargar estado de la persona
 			if (responseConsultarPersona.getEstadoPersona() != null && !responseConsultarPersona.getEstadoPersona().isEmpty()) {
-				estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+				try {
+					estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+				} catch (NumberFormatException e) {
+					throw new ModelException("Valor incorrecto para EstadoPersona");
+				}
 			}
 
 			// Si no está prohibido para beneficiarios lo añadimos
@@ -419,7 +423,11 @@ public class GlobalServicesService extends AbstractService {
 			EstadoPersona estadoPersona = null;
 			// Cargar estado de la persona
 			if (responseConsultarPersona.getEstadoPersona() != null && !responseConsultarPersona.getEstadoPersona().isEmpty()) {
-				estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+				try {
+					estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+				} catch (NumberFormatException e) {
+					throw new ModelException("Valor incorrecto para EstadoPersona");
+				}
 			}
 
 			// Si no está prohibido para beneficiarios lo añadimos

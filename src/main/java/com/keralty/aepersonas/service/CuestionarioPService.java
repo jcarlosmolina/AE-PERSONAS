@@ -623,7 +623,7 @@ public class CuestionarioPService extends AbstractService {
 									
 									if (numpregunta != null && item2.getAnswer() != null && !item2.getAnswer().isEmpty()) {
 										ItemAnswer respuesta = item2.getAnswer().get(0);
-										Boolean respuestaSiNo = respuesta.getValueBoolean() != null ? respuesta.getValueBoolean() : false;
+										boolean respuestaSiNo = respuesta.getValueBoolean() != null ? respuesta.getValueBoolean() : false;
 										String textoRespuesta = "";
 										if (respuestaSiNo) {
 											if (respuesta.getItem() != null && !respuesta.getItem().isEmpty() && 
@@ -638,7 +638,11 @@ public class CuestionarioPService extends AbstractService {
 								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREpthisCuestionarioPInstance(instance);
 								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaSiNo(respuestaSiNo);
 								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaObs(textoRespuesta);
-								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptNumPregunta(Long.valueOf(numpregunta));
+								        try {
+								        	step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptNumPregunta(Long.valueOf(numpregunta));
+								        } catch (NumberFormatException e) {
+								        	throw new ModelException("Valor incorrecto para NumPregunta");
+								        }
 								        cuestionarioPSrv.tMARCARDATOSPREGUNTACOREImplementation(step4Request);
 									}
 								}

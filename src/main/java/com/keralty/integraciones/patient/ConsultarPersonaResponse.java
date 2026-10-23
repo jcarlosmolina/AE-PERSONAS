@@ -195,9 +195,13 @@ public class ConsultarPersonaResponse {
 	
     @JsonIgnore
 	public Long getCodigo() {
-		if (getBasicData() != null) {
-			return Long.valueOf(getBasicData().getID());
-		}
+    	try {
+    		if (getBasicData() != null) {
+    			return Long.valueOf(getBasicData().getID());
+    		}
+    	} catch (NumberFormatException e) {
+    		return null;
+    	}
 		return null;
 	}
 
