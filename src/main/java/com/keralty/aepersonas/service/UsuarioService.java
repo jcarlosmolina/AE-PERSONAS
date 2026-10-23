@@ -74,6 +74,12 @@ import com.keralty.aepersonas.viewmodel.PreloadViewModel;
 import com.keralty.aepersonas.viewmodel.QueryRequest;
 import com.keralty.aepersonas.viewmodel.QueryResponse;
 import com.keralty.aepersonas.viewmodel.ServiceResponse;
+import com.keralty.integraciones.patient.ConsultarPersonaRequest;
+import com.keralty.integraciones.patient.ConsultarPreexistenciasResponse;
+import com.keralty.integraciones.patient.condition.response.Code;
+import com.keralty.integraciones.patient.condition.response.Coding;
+import com.keralty.integraciones.patient.condition.response.Entry;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -84,6 +90,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.LoggerFactory;
 
 @Transactional
@@ -153,6 +160,9 @@ public class UsuarioService extends AbstractService {
     CuestionarioMedService cuestionarioMedSrv;
 
     UserFunctions userFunctionsSrv;
+
+    @RestClient
+    BhCallService bhCallService;
 
     @Inject
     public UsuarioService(
@@ -3049,6 +3059,7 @@ public class UsuarioService extends AbstractService {
             com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest step10Request = new com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest();
             step10Request.setCuestionarioPTELIMINARpthisCuestionarioPInstance(usuarioTELIMINARpthisUsuario.getCuestionarioP());
             cuestionarioPSrv.tELIMINARImplementation(step10Request);
+            instance.add2CuestionarioP(null);
         }
 
         /* Action 2: IF (EXIST (AnexoMat) = true) */
@@ -3815,6 +3826,7 @@ public class UsuarioService extends AbstractService {
             com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest step10Request = new com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest();
             step10Request.setCuestionarioPTELIMINARpthisCuestionarioPInstance(usuarioTELIMINARSINPRECpthisUsuario.getCuestionarioP());
             cuestionarioPSrv.tELIMINARImplementation(step10Request);
+            instance.add2CuestionarioP(null);
         }
 
         /* Action 2: IF (EXIST (AnexoMat) = true) */
@@ -3906,6 +3918,7 @@ public class UsuarioService extends AbstractService {
             com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest step10Request = new com.keralty.aepersonas.viewmodel.cuestionariop.siu.TELIMINARRequest();
             step10Request.setCuestionarioPTELIMINARpthisCuestionarioPInstance(usuarioTRECREARCUESMEDICOpthisUsuario.getCuestionarioP());
             cuestionarioPSrv.tELIMINARImplementation(step10Request);
+            instance.add2CuestionarioP(null);
         }
 
         com.keralty.aepersonas.viewmodel.usuario.siu.CalcularIMCRequest step2Request = new com.keralty.aepersonas.viewmodel.usuario.siu.CalcularIMCRequest();
@@ -3979,13 +3992,42 @@ public class UsuarioService extends AbstractService {
             preexistenciaSrv.eliminarImplementation(step1Request);
         }
 
-        com.keralty.aepersonas.viewmodel.preexistencia.siu.CrearRequest step2Request = new com.keralty.aepersonas.viewmodel.preexistencia.siu.CrearRequest();
-        step2Request.setPreexistenciacrearpagrUsuarioInstance(usuarioTCARGARPREEXISTpthisUsuario);
-        step2Request.setPreexistenciacrearpatrDescripcion("");
-        step2Request.setPreexistenciacrearpatrFecInicio(STDFunctions.systemDateFun());
-        step2Request.setPreexistenciacrearpatrFecFin(STDFunctions.systemDateFun());
-        step2Request.setPreexistenciacrearpatrObservacion("");
-        preexistenciaSrv.crearImplementation(step2Request);
+		// Buscar y cargar las preexistencias de la persona
+        ConsultarPersonaRequest reqPersona = new ConsultarPersonaRequest();
+        reqPersona.setTipoIdentificacion(usuarioTCARGARPREEXISTpthisUsuario.getTipoIdentificacion().getTipoIdentificacionNombreCorto());
+        reqPersona.setNumeroIdentificacion(usuarioTCARGARPREEXISTpthisUsuario.getUsuarioNumIdentificacion());
+        reqPersona.setNumSolicitud(usuarioTCARGARPREEXISTpthisUsuario.getSolicitud().getSolicitudNumRadicado().toString());
+        ConsultarPreexistenciasResponse responsePreExistencias = bhCallService.consultarPreexistencias(reqPersona);
+        if (responsePreExistencias != null && responsePreExistencias.isExito() && responsePreExistencias.getConditionResponse() != null &&
+        		responsePreExistencias.getConditionResponse().getResource() != null && responsePreExistencias.getConditionResponse().getResource().getEntry() != null) {
+        	
+        	for (Entry entry : responsePreExistencias.getConditionResponse().getResource().getEntry()) {
+        		if (entry.getResource() != null && entry.getResource().getAbatementPeriod() != null && entry.getResource().getAbatementPeriod().getStart() != null) {
+        			if (entry.getResource().getCategory() != null) {
+        				for (Code category : entry.getResource().getCategory()) {
+        					if (category.getCoding() != null) {
+        						for (Coding coding : category.getCoding()) {
+        							if (coding.getDisplay() != null) {
+        								// Llamamos al servicio de creacion
+        					    		String desc = coding.getDisplay();
+        					    		if (desc.length() > 200){
+        					    			desc = desc.substring(0, 199);
+        					    		}
+        					            com.keralty.aepersonas.viewmodel.preexistencia.siu.CrearRequest step2Request = new com.keralty.aepersonas.viewmodel.preexistencia.siu.CrearRequest();
+        					            step2Request.setPreexistenciacrearpagrUsuarioInstance(usuarioTCARGARPREEXISTpthisUsuario);
+        					            step2Request.setPreexistenciacrearpatrDescripcion(desc);
+        					            step2Request.setPreexistenciacrearpatrFecInicio(entry.getResource().getAbatementPeriod().getStart());
+        					            step2Request.setPreexistenciacrearpatrFecFin(entry.getResource().getAbatementPeriod().getEnd());
+        					            step2Request.setPreexistenciacrearpatrObservacion("");
+        					            preexistenciaSrv.crearImplementation(step2Request);
+        							}
+        						}
+        					}
+        				}
+        			}
+        		}
+        	}
+        }
 
         response.setInstance(getByOID(instance.getOid()));
         response.setInstanceSuppInfo(instance.buildICUsuario());

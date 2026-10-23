@@ -27,14 +27,15 @@ public class VertexFilter {
     	this.tokenService = tokenService;
     }
     
-    @RouteFilter
-    void addUpdatedJWTToResponse(RoutingContext rc) {
-        String authorizationHeader = rc.request().getHeader(AUTHORIZATION_HEADER);
-        if (authorizationHeader != null && jwt != null) {
-            rc.response().putHeader(AUTHORIZATION_HEADER, tokenService.renew(jwt));
-            rc.response().putHeader(ACCESS_CONTROL_EXPOSE_HEADERS, ACCESS_CONTROL_EXPOSE_HEADERS_VALUES);
-        }
-        rc.next();
-    }
+// Cancelado este filtro. Se mantiene el fichero por si en un futuro fuese necesario un filtro de cualqueir tipo 
+//    @RouteFilter
+//    void addUpdatedJWTToResponse(RoutingContext rc) {
+//        String authorizationHeader = rc.request().getHeader(AUTHORIZATION_HEADER);
+//        if (authorizationHeader != null && jwt != null) {
+//            rc.response().putHeader(AUTHORIZATION_HEADER, tokenService.renew(jwt));
+//            rc.response().putHeader(ACCESS_CONTROL_EXPOSE_HEADERS, ACCESS_CONTROL_EXPOSE_HEADERS_VALUES);
+//        }
+//        rc.next();
+//    }
     
 }

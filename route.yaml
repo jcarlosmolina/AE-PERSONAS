@@ -12,7 +12,7 @@ metadata:
     app.kubernetes.io/part-of: ae-app
     app.openshift.io/runtime: ae-personas
 spec:
-  host: ae-personas-${NAMESPACE}.${DOMAIN}
+  host: ae-personas-soporte-colsanitas-dev.apps.rm3.7wse.p1.openshiftapps.com
   to:
     kind: Service
     name: ae-personas

@@ -8,6 +8,6 @@ public class MinCardinalityException extends ModelException {
     private static final long serialVersionUID = 1L;
     
     public MinCardinalityException(String classAlias, String roleAlias) {
-    	super(ErrorInfo.LOW_CARD, "Instance of " + classAlias + " cannot be deleted as it is related with at least one instance of " + roleAlias);
+    	super(ErrorInfo.LOW_CARD, "Instancia de " + classAlias + " no puede ser borrada debido a que se relaciona con al menos una instancia de " + roleAlias);
     }
 }

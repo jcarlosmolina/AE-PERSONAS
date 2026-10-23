@@ -31,6 +31,14 @@ import com.keralty.aepersonas.viewmodel.PreloadResponseViewModel;
 import com.keralty.aepersonas.viewmodel.QueryRequest;
 import com.keralty.aepersonas.viewmodel.QueryResponse;
 import com.keralty.aepersonas.viewmodel.ServiceResponse;
+import com.keralty.integraciones.patient.ConsultarCuestionarioMedicoResponse;
+import com.keralty.integraciones.patient.ConsultarPersonaRequest;
+import com.keralty.integraciones.patient.questionnaire.response.Entry;
+import com.keralty.integraciones.patient.questionnaire.response.ItemAnswer;
+import com.keralty.integraciones.patient.questionnaire.response.ItemItem;
+import com.keralty.integraciones.patient.questionnaire.response.ResourceEntry;
+import com.keralty.integraciones.patient.questionnaire.response.ResourceItem;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -39,7 +47,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.LoggerFactory;
+
 
 @Transactional
 @ApplicationScoped
@@ -65,6 +75,9 @@ public class CuestionarioPService extends AbstractService {
 
     UserFunctions userFunctionsSrv;
 
+    @RestClient
+    BhCallService bhCallService;
+    
     @Inject
     public CuestionarioPService(
             CuestionarioPService cuestionarioPSrv,
@@ -587,12 +600,55 @@ public class CuestionarioPService extends AbstractService {
             seccionPSrv.tELIMINARImplementation(step3Request);
         }
 
-        com.keralty.aepersonas.viewmodel.cuestionariop.siu.TMARCARDATOSPREGUNTACORERequest step4Request = new com.keralty.aepersonas.viewmodel.cuestionariop.siu.TMARCARDATOSPREGUNTACORERequest();
-        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREpthisCuestionarioPInstance(instance);
-        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaSiNo(Boolean.TRUE);
-        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaObs("");
-        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptNumPregunta(Long.valueOf(0));
-        cuestionarioPSrv.tMARCARDATOSPREGUNTACOREImplementation(step4Request);
+        // Consultamos el cuestionario medico de la persona
+
+        ConsultarPersonaRequest requestQuestionario = new ConsultarPersonaRequest();
+        requestQuestionario.setNumSolicitud(cuestionarioPTCREARYSECCIONESptUsuario.getSolicitud().getSolicitudNumRadicado().toString());
+        requestQuestionario.setTipoIdentificacion(cuestionarioPTCREARYSECCIONESptUsuario.getTipoIdentificacion().getTipoIdentificacionNombreCorto());
+        requestQuestionario.setNumeroIdentificacion(cuestionarioPTCREARYSECCIONESptUsuario.getUsuarioNumIdentificacion());
+		ConsultarCuestionarioMedicoResponse respuestaCuestionario = bhCallService.consultarCuestionarioMedico(requestQuestionario );
+
+		// Si hemos ercibido los datos del cuestionario, asignamos valor a las respuestas. 
+		if (respuestaCuestionario != null && respuestaCuestionario.isExito() && respuestaCuestionario.getQuestionnaireResponse() != null &&
+				respuestaCuestionario.getQuestionnaireResponse().getEntry() != null) {
+
+			for (Entry entry : respuestaCuestionario.getQuestionnaireResponse().getEntry()) {
+				if (entry.getResource() != null && entry.getResource().getEntry() != null) {
+					for (ResourceEntry entry2 : entry.getResource().getEntry()) {
+						if (entry2.getResource() != null && entry2.getResource().getItem() != null) {
+							for (ResourceItem item : entry2.getResource().getItem()) {
+								for (ItemItem item2 : item.getItem()) {
+									String numpregunta = item2.getLinkID();
+									
+									
+									if (numpregunta != null && item2.getAnswer() != null && !item2.getAnswer().isEmpty()) {
+										ItemAnswer respuesta = item2.getAnswer().get(0);
+										Boolean respuestaSiNo = respuesta.getValueBoolean() != null ? respuesta.getValueBoolean() : false;
+										String textoRespuesta = "";
+										if (respuestaSiNo) {
+											if (respuesta.getItem() != null && !respuesta.getItem().isEmpty() && 
+													respuesta.getItem().get(0).getAnswer() != null && 
+													!respuesta.getItem().get(0).getAnswer().isEmpty() ) {
+												textoRespuesta = respuesta.getItem().get(0).getAnswer().get(0).getValueString();
+											}
+										}
+
+										// Llamamos al servicio
+								        com.keralty.aepersonas.viewmodel.cuestionariop.siu.TMARCARDATOSPREGUNTACORERequest step4Request = new com.keralty.aepersonas.viewmodel.cuestionariop.siu.TMARCARDATOSPREGUNTACORERequest();
+								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREpthisCuestionarioPInstance(instance);
+								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaSiNo(respuestaSiNo);
+								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptpRespuestaObs(textoRespuesta);
+								        step4Request.setCuestionarioPTMARCARDATOSPREGUNTACOREptNumPregunta(Long.valueOf(numpregunta));
+								        cuestionarioPSrv.tMARCARDATOSPREGUNTACOREImplementation(step4Request);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}        
 
         response.setInstance(getByOID(instance.getOid()));
 

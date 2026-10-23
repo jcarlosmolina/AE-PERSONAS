@@ -19,6 +19,17 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import java.sql.Date;
 
+import com.keralty.aepersonas.persistence.EstadoPersona;
+import com.keralty.aepersonas.viewmodel.globalservices.siu.TGADDUSUARIODECONTRequest;
+import com.keralty.integraciones.contract.ConsultarContratoDePersonaRequest;
+import com.keralty.integraciones.contract.ConsultarContratoRequest;
+import com.keralty.integraciones.contract.ConsultarContratoResponse;
+import com.keralty.integraciones.contract.cover.response.CoverFamilyResponse;
+import com.keralty.integraciones.contract.cover.response.Patient;
+import com.keralty.integraciones.patient.ConsultarPersonaRequest;
+import com.keralty.integraciones.patient.ConsultarPersonaResponse;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 @Transactional
 @ApplicationScoped
 public class GlobalServicesService extends AbstractService {
@@ -44,6 +55,9 @@ public class GlobalServicesService extends AbstractService {
     PersonaService personaSrv;
 
     GlobalServicesJpaRepository globalServicesRepository;
+
+    @RestClient
+    BhCallService bhCallService;
 
     @Inject
     public GlobalServicesService(
@@ -119,13 +133,152 @@ public class GlobalServicesService extends AbstractService {
 
         tGSELECCONTRATOASOCPreconditions(request);
 
-        com.keralty.aepersonas.viewmodel.globalservices.siu.TGSELECCONTRATOASOCRequest step1Request = new com.keralty.aepersonas.viewmodel.globalservices.siu.TGSELECCONTRATOASOCRequest();
-        step1Request.setTGSELECCONTRATOASOCpSolicitudInstance(tGSELECCONTRATOASOCpSolicitud);
-        step1Request.setTGSELECCONTRATOASOCptNumContrato(tGSELECCONTRATOASOCptNumContrato);
-        step1Request.setTGSELECCONTRATOASOCptCodLegalProducto(tGSELECCONTRATOASOCptCodLegalProducto);
-        step1Request.setTGSELECCONTRATOASOCptCodLegalPlan(tGSELECCONTRATOASOCptCodLegalPlan);
-        step1Request.setTGSELECCONTRATOASOCptNumFamilia(tGSELECCONTRATOASOCptNumFamilia);
-        globalServicesSrv.tGSELECCONTRATOASOCImplementation(step1Request);
+        ConsultarContratoRequest reqConsultarContrato = new ConsultarContratoRequest();
+		// Recuperamos los datos del contrato a partir de la info recibida
+        reqConsultarContrato.setCodigoLegalProducto(tGSELECCONTRATOASOCptCodLegalProducto);
+        reqConsultarContrato.setCodigoLegalPlan(tGSELECCONTRATOASOCptCodLegalPlan);
+        reqConsultarContrato.setNumContrato(tGSELECCONTRATOASOCptNumContrato);
+        reqConsultarContrato.setNumeroFamilia(tGSELECCONTRATOASOCptNumFamilia);
+        reqConsultarContrato.setNumSolicitud(tGSELECCONTRATOASOCpSolicitud.getSolicitudNumRadicado().toString());
+        ConsultarContratoResponse responseConsultarContrato = bhCallService.consultaContrato(reqConsultarContrato );
+        
+        if (!responseConsultarContrato.isExito()) {
+        	response.setResultCode("900");
+        	response.setResultDescription(responseConsultarContrato.getTextoError());
+        	return response;
+        }
+        
+        if (responseConsultarContrato.getCoverResponse() == null || responseConsultarContrato.getCoverResponse().getCoverFamilyResponse() == null ||
+        		responseConsultarContrato.getCoverResponse().getCoverFamilyResponse().isEmpty()) {
+        	response.setResultCode("901");
+        	response.setResultDescription("Contrato no encontrado");
+        	return response;
+        }
+
+        // Nos quedamos con el contrato, solo debe haber uno
+		CoverFamilyResponse contrato = responseConsultarContrato.getCoverResponse().getCoverFamilyResponse().get(0);
+
+		String tipoIdentContratante = tGSELECCONTRATOASOCpSolicitud.getContratante().getTipoIdentificacion().getTipoIdentificacionNombreCorto();
+    	String numIdentContratante = tGSELECCONTRATOASOCpSolicitud.getContratante().getContratanteNumIdentificacion();
+
+
+        // Para todos los beneficiarios del contrato que no sea el contratante, lo añadimos a la solicitud.
+    	for (Patient bene : contrato.getContract().getSubject().getPatient() ) {
+    	
+    		String tipoIdentBene = ConsultarContratoResponse.getValueIdentifierPorClave(bene.getIdentifier(), "TIPO_IDENTIFICACION");
+    		String numIdentBene = ConsultarContratoResponse.getValueIdentifierPorClave(bene.getIdentifier(), "NUMERO_IDENTIFICACION");
+    		
+    		if (tipoIdentBene.equalsIgnoreCase(tipoIdentContratante) && numIdentBene.equalsIgnoreCase(numIdentContratante)) {
+    			continue;
+    		}
+    		
+    		String codBancoRep = bene.getColCentralBankCod();
+    		
+			// Recuperamos a la persona desde el CORE
+    		ConsultarPersonaRequest reqConsultarPersona = new ConsultarPersonaRequest();
+    		reqConsultarPersona.setTipoIdentificacion(tipoIdentBene);
+    		reqConsultarPersona.setNumeroIdentificacion(numIdentBene);
+    		reqConsultarPersona.setNumSolicitud(tGSELECCONTRATOASOCpSolicitud.getSolicitudNumRadicado().toString());
+    		ConsultarPersonaResponse responseConsultarPersona = bhCallService.consultarPersona(reqConsultarPersona);
+    		
+    		if (!responseConsultarPersona.isExito()) {
+            	response.setResultCode("920");
+            	response.setResultDescription(responseConsultarContrato.getTextoError());
+            	return response;
+    		}
+    		
+			EstadoPersona estadoPersona = null;
+			// Cargar estado de la persona
+			if (responseConsultarPersona.getEstadoPersona() != null && !responseConsultarPersona.getEstadoPersona().isEmpty()) {
+				estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+			}
+
+			// Si no está prohibido para beneficiarios lo añadimos
+			if (estadoPersona != null && !estadoPersona.isNull() && estadoPersona.getEstadoPersonaProhibidoBeneficiarios()) {
+				continue;
+			}
+				
+			String codLegalDepNac = responseConsultarPersona.getDepartamentoNacimiento();
+			String codLegalMunNac = responseConsultarPersona.getMunicipioNacimiento();
+			Departamento depNac = null;
+			Municipio munNac = null;
+			// Departamento y Municipio de nacimiento
+			if (codLegalDepNac != null) {
+				depNac =  userFunctionsSrv.fugetDepartamentoCLFun(codLegalDepNac);
+			}
+			if (codLegalMunNac != null) {
+				munNac =  userFunctionsSrv.fugetMunicipioCLFun(codLegalMunNac);
+			}
+
+			EstadoCivil estCivil = null;
+			Long estCivilNum = responseConsultarPersona.getEstadoCivil();
+			if (estCivilNum != null) {
+				estCivil = estadoCivilSrv.getById(estCivilNum);
+			}
+			TipoIdentificacion tipoIdent = userFunctionsSrv.fugetTipoIdentificacionFun(tipoIdentBene);
+
+			// Datos de residencia
+			Departamento depRes = null;
+			Municipio munRes = null;
+			Pais paisRes = null;
+			String dirCompleta = null;
+			if (responseConsultarPersona.tieneDireccionDeUso("RESIDENCIAL")) {
+				munRes =  userFunctionsSrv.fugetMunicipioCLFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "MUN") );
+				depRes =  userFunctionsSrv.fugetDepartamentoCLFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "DEP") );
+				paisRes =  userFunctionsSrv.fugetPaisFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "PAIS") );
+				dirCompleta = responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "DIR");
+			}
+
+			Parentesco parentesco = null;
+			if (bene.getRelationShip() != null && bene.getRelationShip().getCode() != null) {
+				parentesco  = parentescoSrv.getById(bene.getRelationShip().getCode());
+			}
+
+			// Tiene EPS Sanitas
+			Boolean tieneEPSSanitas = false;
+			ConsultarContratoDePersonaRequest reqContPersona = new ConsultarContratoDePersonaRequest();
+			reqContPersona.setTipoIdentificacion(tipoIdentBene);
+			reqContPersona.setNumeroIdentificacion(numIdentBene);
+			reqContPersona.setNumSolicitud(tGSELECCONTRATOASOCpSolicitud.getSolicitudNumRadicado().toString());
+			ConsultarContratoResponse contPersonaResponse = bhCallService.consultarContratosAsociadosDePersona(reqContPersona);
+			if (contPersonaResponse.isExito()) {
+				tieneEPSSanitas = contPersonaResponse.isTieneEPSSanitas();
+			}
+
+			TGADDUSUARIODECONTRequest reqAddBene = new TGADDUSUARIODECONTRequest();
+			reqAddBene.setTGADDUSUARIODECONTptpagrDepartamentoInstance(depRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrDepartamentoNacimientoInstance(depNac);
+			reqAddBene.setTGADDUSUARIODECONTptpagrEstadoCivilInstance(estCivil);
+			reqAddBene.setTGADDUSUARIODECONTptpagrMunicipioInstance(munRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrMunicipioNacimientoInstance(munNac);
+			reqAddBene.setTGADDUSUARIODECONTptpagrPaisInstance(paisRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrParentescoInstance(parentesco);
+			reqAddBene.setTGADDUSUARIODECONTptpagrSolicitudInstance(tGSELECCONTRATOASOCpSolicitud);
+			reqAddBene.setTGADDUSUARIODECONTptpagrTipoIdentificacionInstance(tipoIdent);
+			// PTE Asignar el dato cuando este disponible 
+			reqAddBene.setTGADDUSUARIODECONTptpatrBebeGestante(false);
+			reqAddBene.setTGADDUSUARIODECONTptpatrcodigoBancoRep(codBancoRep);
+			reqAddBene.setTGADDUSUARIODECONTptpatrCorreoElectronico(responseConsultarPersona.getCorreoElectronico());
+			reqAddBene.setTGADDUSUARIODECONTptpatrDireccionCompleta(dirCompleta);
+			reqAddBene.setTGADDUSUARIODECONTptpatrFechaNacimiento(responseConsultarPersona.getFechaNacimiento());
+			reqAddBene.setTGADDUSUARIODECONTptpatrGenero(responseConsultarPersona.getGenero());
+			reqAddBene.setTGADDUSUARIODECONTptpatrIndicadorExtranjero(responseConsultarPersona.getBasicData().isForeign());
+			reqAddBene.setTGADDUSUARIODECONTptpatrNumIdentificacion(numIdentBene);
+			reqAddBene.setTGADDUSUARIODECONTptpatrPrimerApellido(responseConsultarPersona.getPrimerApellido());
+			reqAddBene.setTGADDUSUARIODECONTptpatrPrimerNombre(responseConsultarPersona.getPrimerNombre());
+			reqAddBene.setTGADDUSUARIODECONTptpatrRural(false);
+			reqAddBene.setTGADDUSUARIODECONTptpatrSegundoApellido(responseConsultarPersona.getSegundoApellido());
+			reqAddBene.setTGADDUSUARIODECONTptpatrSegundoNombre(responseConsultarPersona.getSegundoNombre());
+			reqAddBene.setTGADDUSUARIODECONTptpatrTelefonoCelular(responseConsultarPersona.getTelefonoCelular());
+			reqAddBene.setTGADDUSUARIODECONTptpatrTelefonoFijo(responseConsultarPersona.getTelefonoFijoResidencia());
+			reqAddBene.setTGADDUSUARIODECONTptpCodigo(responseConsultarPersona.getCodigo());
+			reqAddBene.setTGADDUSUARIODECONTptpRechazadoAfiliacion(responseConsultarPersona.getRechazadoAfiliacion());
+			reqAddBene.setTGADDUSUARIODECONTptpTieneEPSSanitas(tieneEPSSanitas);
+			reqAddBene.setTGADDUSUARIODECONTptptParaContratante(true);
+			
+			tGADDUSUARIODECONTImplementation(reqAddBene );
+
+    	}
         return response;
     }
 
@@ -211,13 +364,150 @@ public class GlobalServicesService extends AbstractService {
 
         tGSELECCONTRATOASOCTITPreconditions(request);
 
-        com.keralty.aepersonas.viewmodel.globalservices.siu.TGSELECCONTRATOASOCTITRequest step1Request = new com.keralty.aepersonas.viewmodel.globalservices.siu.TGSELECCONTRATOASOCTITRequest();
-        step1Request.setTGSELECCONTRATOASOCTITptpSolicitudInstance(tGSELECCONTRATOASOCTITptpSolicitud);
-        step1Request.setTGSELECCONTRATOASOCTITptNumContrato(tGSELECCONTRATOASOCTITptNumContrato);
-        step1Request.setTGSELECCONTRATOASOCTITptCodLegalProducto(tGSELECCONTRATOASOCTITptCodLegalProducto);
-        step1Request.setTGSELECCONTRATOASOCTITptCodLegalPlan(tGSELECCONTRATOASOCTITptCodLegalPlan);
-        step1Request.setTGSELECCONTRATOASOCTITptNumFamilia(tGSELECCONTRATOASOCTITptNumFamilia);
-        globalServicesSrv.tGSELECCONTRATOASOCTITImplementation(step1Request);
+        ConsultarContratoRequest reqConsultarContrato = new ConsultarContratoRequest();
+		// Recuperamos los datos del contrato a partir de la info recibida
+        reqConsultarContrato.setCodigoLegalProducto(tGSELECCONTRATOASOCTITptCodLegalProducto);
+        reqConsultarContrato.setCodigoLegalPlan(tGSELECCONTRATOASOCTITptCodLegalPlan);
+        reqConsultarContrato.setNumContrato(tGSELECCONTRATOASOCTITptNumContrato);
+        reqConsultarContrato.setNumeroFamilia(tGSELECCONTRATOASOCTITptNumFamilia);
+        reqConsultarContrato.setNumSolicitud(tGSELECCONTRATOASOCTITptpSolicitud.getSolicitudNumRadicado().toString());
+        ConsultarContratoResponse responseConsultarContrato = bhCallService.consultaContrato(reqConsultarContrato );
+        
+        if (!responseConsultarContrato.isExito()) {
+        	response.setResultCode("900");
+        	response.setResultDescription(responseConsultarContrato.getTextoError());
+        	return response;
+        }
+        
+        if (responseConsultarContrato.getCoverResponse() == null || responseConsultarContrato.getCoverResponse().getCoverFamilyResponse() == null ||
+        		responseConsultarContrato.getCoverResponse().getCoverFamilyResponse().isEmpty()) {
+        	response.setResultCode("901");
+        	response.setResultDescription("Contrato no encontrado");
+        	return response;
+        }
+        // Nos quedamos con el contrato, solo debe haber uno
+		CoverFamilyResponse contrato = responseConsultarContrato.getCoverResponse().getCoverFamilyResponse().get(0);
+
+		String tipoIdentTitular = tGSELECCONTRATOASOCTITptpSolicitud.getTitular().getTipoIdentificacion().getTipoIdentificacionNombreCorto();
+    	String numIdentTitular = tGSELECCONTRATOASOCTITptpSolicitud.getTitular().getTitularNumIdentificacion();
+
+        // Para todos los beneficiarios del contrato que no sea el contratante, lo añadimos a la solicitud.
+    	for (Patient bene : contrato.getContract().getSubject().getPatient() ) {
+    	
+    		String tipoIdentBene = ConsultarContratoResponse.getValueIdentifierPorClave(bene.getIdentifier(), "TIPO_IDENTIFICACION");
+    		String numIdentBene = ConsultarContratoResponse.getValueIdentifierPorClave(bene.getIdentifier(), "NUMERO_IDENTIFICACION");
+    		
+    		if (tipoIdentBene.equalsIgnoreCase(tipoIdentTitular) && numIdentBene.equalsIgnoreCase(numIdentTitular)) {
+    			continue;
+    		}
+
+    		String codBancoRep = bene.getColCentralBankCod();
+
+			// Recuperamos a la persona desde el CORE
+    		ConsultarPersonaRequest reqConsultarPersona = new ConsultarPersonaRequest();
+    		reqConsultarPersona.setTipoIdentificacion(tipoIdentBene);
+    		reqConsultarPersona.setNumeroIdentificacion(numIdentBene);
+    		reqConsultarPersona.setNumSolicitud(tGSELECCONTRATOASOCTITptpSolicitud.getSolicitudNumRadicado().toString());
+    		ConsultarPersonaResponse responseConsultarPersona = bhCallService.consultarPersona(reqConsultarPersona);
+    		
+    		if (!responseConsultarPersona.isExito()) {
+            	response.setResultCode("920");
+            	response.setResultDescription(responseConsultarContrato.getTextoError());
+            	return response;
+    		}
+    		
+			EstadoPersona estadoPersona = null;
+			// Cargar estado de la persona
+			if (responseConsultarPersona.getEstadoPersona() != null && !responseConsultarPersona.getEstadoPersona().isEmpty()) {
+				estadoPersona = userFunctionsSrv.fugetEstadoPersonaFun(Long.valueOf(responseConsultarPersona.getEstadoPersona()));
+			}
+
+			// Si no está prohibido para beneficiarios lo añadimos
+			if (estadoPersona != null && !estadoPersona.isNull() && estadoPersona.getEstadoPersonaProhibidoBeneficiarios()) {
+				continue;
+			}
+
+			String codLegalDepNac = responseConsultarPersona.getDepartamentoNacimiento();
+			String codLegalMunNac = responseConsultarPersona.getMunicipioNacimiento();
+			Departamento depNac = null;
+			Municipio munNac = null;
+			// Departamento y Municipio de nacimiento
+			if (codLegalDepNac != null) {
+				depNac =  userFunctionsSrv.fugetDepartamentoCLFun(codLegalDepNac);
+			}
+			if (codLegalMunNac != null) {
+				munNac =  userFunctionsSrv.fugetMunicipioCLFun(codLegalMunNac);
+			}
+        			
+			EstadoCivil estCivil = null;
+			Long estCivilNum = responseConsultarPersona.getEstadoCivil();
+			if (estCivilNum != null) {
+				estCivil = estadoCivilSrv.getById(estCivilNum);
+			}
+			TipoIdentificacion tipoIdent = userFunctionsSrv.fugetTipoIdentificacionFun(tipoIdentBene);
+
+			// Datos de residencia
+			Departamento depRes = null;
+			Municipio munRes = null;
+			Pais paisRes = null;
+			String dirCompleta = null;
+			if (responseConsultarPersona.tieneDireccionDeUso("RESIDENCIAL")) {
+				munRes =  userFunctionsSrv.fugetMunicipioCLFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "MUN") );
+				depRes =  userFunctionsSrv.fugetDepartamentoCLFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "DEP") );
+				paisRes =  userFunctionsSrv.fugetPaisFun(responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "PAIS") );
+				dirCompleta = responseConsultarPersona.getDatoDeDireccionDeUso("RESIDENCIAL", "DIR");
+			}
+
+
+			Parentesco parentesco = null;
+			if (bene.getRelationShip() != null && bene.getRelationShip().getCode() != null) {
+				parentesco  = parentescoSrv.getById(bene.getRelationShip().getCode());
+			}
+			
+			// Tiene EPS Sanitas
+			Boolean tieneEPSSanitas = false;
+			ConsultarContratoDePersonaRequest reqContPersona = new ConsultarContratoDePersonaRequest();
+			reqContPersona.setTipoIdentificacion(tipoIdentBene);
+			reqContPersona.setNumeroIdentificacion(numIdentBene);
+			reqContPersona.setNumSolicitud(tGSELECCONTRATOASOCTITptpSolicitud.getSolicitudNumRadicado().toString());
+			ConsultarContratoResponse contPersonaResponse = bhCallService.consultarContratosAsociadosDePersona(reqContPersona);
+			if (contPersonaResponse.isExito()) {
+				tieneEPSSanitas = contPersonaResponse.isTieneEPSSanitas();
+			}
+			
+			TGADDUSUARIODECONTRequest reqAddBene = new TGADDUSUARIODECONTRequest();
+			reqAddBene.setTGADDUSUARIODECONTptpagrDepartamentoInstance(depRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrDepartamentoNacimientoInstance(depNac);
+			reqAddBene.setTGADDUSUARIODECONTptpagrEstadoCivilInstance(estCivil);
+			reqAddBene.setTGADDUSUARIODECONTptpagrMunicipioInstance(munRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrMunicipioNacimientoInstance(munNac);
+			reqAddBene.setTGADDUSUARIODECONTptpagrPaisInstance(paisRes);
+			reqAddBene.setTGADDUSUARIODECONTptpagrParentescoInstance(parentesco);
+			reqAddBene.setTGADDUSUARIODECONTptpagrSolicitudInstance(tGSELECCONTRATOASOCTITptpSolicitud);
+			reqAddBene.setTGADDUSUARIODECONTptpagrTipoIdentificacionInstance(tipoIdent);
+			// PTE Asignar el dato cuando esté disponible 
+			reqAddBene.setTGADDUSUARIODECONTptpatrBebeGestante(false);
+			reqAddBene.setTGADDUSUARIODECONTptpatrcodigoBancoRep(codBancoRep);
+			reqAddBene.setTGADDUSUARIODECONTptpatrCorreoElectronico(responseConsultarPersona.getCorreoElectronico());
+			reqAddBene.setTGADDUSUARIODECONTptpatrDireccionCompleta(dirCompleta);
+			reqAddBene.setTGADDUSUARIODECONTptpatrFechaNacimiento(responseConsultarPersona.getFechaNacimiento());
+			reqAddBene.setTGADDUSUARIODECONTptpatrGenero(responseConsultarPersona.getGenero());
+			reqAddBene.setTGADDUSUARIODECONTptpatrIndicadorExtranjero(responseConsultarPersona.getBasicData().isForeign());
+			reqAddBene.setTGADDUSUARIODECONTptpatrNumIdentificacion(numIdentBene);
+			reqAddBene.setTGADDUSUARIODECONTptpatrPrimerApellido(responseConsultarPersona.getPrimerApellido());
+			reqAddBene.setTGADDUSUARIODECONTptpatrPrimerNombre(responseConsultarPersona.getPrimerNombre());
+			reqAddBene.setTGADDUSUARIODECONTptpatrRural(false);
+			reqAddBene.setTGADDUSUARIODECONTptpatrSegundoApellido(responseConsultarPersona.getSegundoApellido());
+			reqAddBene.setTGADDUSUARIODECONTptpatrSegundoNombre(responseConsultarPersona.getSegundoNombre());
+			reqAddBene.setTGADDUSUARIODECONTptpatrTelefonoCelular(responseConsultarPersona.getTelefonoCelular());
+			reqAddBene.setTGADDUSUARIODECONTptpatrTelefonoFijo(responseConsultarPersona.getTelefonoFijoResidencia());
+			reqAddBene.setTGADDUSUARIODECONTptpCodigo(responseConsultarPersona.getCodigo());
+			reqAddBene.setTGADDUSUARIODECONTptpRechazadoAfiliacion(responseConsultarPersona.getRechazadoAfiliacion());
+			reqAddBene.setTGADDUSUARIODECONTptpTieneEPSSanitas(tieneEPSSanitas);
+			reqAddBene.setTGADDUSUARIODECONTptptParaContratante(false);
+			
+			tGADDUSUARIODECONTImplementation(reqAddBene );
+        }
         return response;
     }
 

@@ -3,6 +3,7 @@ package com.keralty.aepersonas.viewmodel;
 import java.util.Arrays;
 
 import com.keralty.aepersonas.exception.ModelException;
+import com.keralty.aepersonas.exception.SystemException;
 
 public class Response {
 
@@ -57,7 +58,7 @@ public class Response {
         if (e instanceof ModelException) {
             setModelException((ModelException) e);
         } else {
-            setGenericException((Exception) e);
+            setGenericException(new SystemException(e));
         }
     }
 
@@ -68,8 +69,6 @@ public class Response {
 
     private void setGenericException(Exception e) {
         this.resultCode = String.valueOf(ModelException.GENERIC_EXCEPTION_CODE);
-        String message = (e.getCause() != null ? e.getCause().getMessage() : e.getMessage());
-        String stackTrace = Arrays.toString(e.getStackTrace());
-        this.resultDescription = String.format("%s%n%s", message, stackTrace);
+        this.resultDescription = (e.getCause() != null ? e.getCause().getMessage() : e.getMessage());
     }
 }

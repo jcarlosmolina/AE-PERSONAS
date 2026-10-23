@@ -49,6 +49,7 @@ import com.keralty.aepersonas.sqlutils.SQLSelect;
 import com.keralty.aepersonas.sqlutils.SQLWhereComparison;
 import com.keralty.aepersonas.sqlutils.SQLWhereConjunction;
 import com.keralty.aepersonas.sqlutils.SQLWhereDisjunction;
+import com.keralty.aepersonas.sqlutils.SQLWhereOperand;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandLiteral;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandNull;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandOVParameter;
@@ -545,6 +546,18 @@ public class PersonaService extends AbstractService {
         }        
 
         sql.addConjunction(conjunction);
+        
+        addCondicionEliminarReprtidoPorIdentificacion(sql);
+    }
+    
+    private void addCondicionEliminarReprtidoPorIdentificacion(SQLSelect sql) {
+        // Eliminar repetidas por identificacion
+        SQLWhereConjunction sinrepetidos = new SQLWhereConjunction();
+        SQLWhereOperand opeSinRepetidos = new SQLWhereOperand();
+        opeSinRepetidos.setOperandText("Persona.personaIdentificador in (select max(PersonaXXX.personaIdentificador) from Persona PersonaXXX group by PersonaXXX.tipoIdentificacionTipoIdentificacionCodigo, PersonaXXX.personaNumIdentificacion)");
+        opeSinRepetidos.setType("Bool");
+        sinrepetidos.addOperand(opeSinRepetidos );
+        sql.addConjunction(sinrepetidos );
     }
 
     private void fPersonaConsultarCORE(FilterRequest filterRequest, SQLSelect sql) {
@@ -983,15 +996,15 @@ public class PersonaService extends AbstractService {
                                                     comparison13.setOperator(">=");
                                                     
                                                     // Operand 1
-                                                    if (solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getGrupoAsociado().getGrupoAsociadoCodigo()!= null){
-                                                    comparison13.setFirstOperand(new SQLWhereOperandLiteral(solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getGrupoAsociado().getGrupoAsociadoCodigo(), Constants.Type.INT.getTypeName()));
+                                                    if (solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getGrupoAsociado() != null &&
+                                                    		!solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getGrupoAsociado().isNull() &&
+                                                    		solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getGrupoAsociado().getGrupoAsociadoCodigo()!= null) {
+                                                    	comparison13.setFirstOperand(new SQLWhereOperandLiteral("1", "String"));
+                                                    	comparison13.setSecondOperand(new SQLWhereOperandLiteral("1", "String"));
                                                     } else {
-                                                    comparison13.setFirstOperand(new SQLWhereOperandNull());
+                                                    	comparison13.setFirstOperand(new SQLWhereOperandLiteral("1", "String"));
+                                                    	comparison13.setSecondOperand(new SQLWhereOperandLiteral("2", "String"));
                                                     }
-                                                    
-                                                    // Operand 2
-                                                    comparison13.setSecondOperand(new SQLWhereOperandLiteral(Long.valueOf(0), Constants.Type.NAT.getTypeName()));
-                                                    comparison9.addOperand(comparison13);
                                             
                                             comparison8.addOperand(comparison9);
                                         }
@@ -1126,9 +1139,11 @@ public class PersonaService extends AbstractService {
                                     
                                     // Operand 1
                                     if (solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getSolicitudNumFamilia()!= null){
-                                    comparison25.setFirstOperand(new SQLWhereOperandLiteral(solicitudTSUBIRDOCUMENTOATOpthisSolicitud.getSolicitudNumFamilia(), Constants.Type.STRING.getTypeName()));
+                                        comparison25.setFirstOperand(new SQLWhereOperandLiteral("1", "String"));
+                                        comparison25.setSecondOperand(new SQLWhereOperandLiteral("2", "String"));
                                     } else {
-                                    comparison25.setFirstOperand(new SQLWhereOperandNull());
+                                        comparison25.setFirstOperand(new SQLWhereOperandLiteral("1", "String"));
+                                        comparison25.setSecondOperand(new SQLWhereOperandLiteral("1", "String"));
                                     }
                                     
                                     // Operand 2
@@ -5851,6 +5866,9 @@ public class PersonaService extends AbstractService {
             SQLWhereConjunction conjunction = new SQLWhereConjunction();
             conjunction.addDisjunction(disjunction);
             select.addConjunction(conjunction);
+
+            addCondicionEliminarReprtidoPorIdentificacion(select);
+
         } catch (Exception e) {
             LoggerFactory.getLogger(this.getClass()).error(e.getMessage());
         }

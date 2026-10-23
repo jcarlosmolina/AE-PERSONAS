@@ -14,12 +14,12 @@ spec:
     type: Git
     git:
 # Replace the placeholder below with the name of your GitHub username
-      uri: "git@github.com:${GitHubUserName}/ae-personas.git"
+      uri: "git@github.com:IntegranovaSoporteColSanitas/ae-personas.git"
 # Uncomment and adapt the line below if you need to reference a specific branch in the repository above
-#      ref: "main"
+      ref: "8.0.0"
 # Uncomment and adapt the two lines below if you need to use credentials to access the (private) repository above
-#    sourceSecret:
-#      name: ae-personas-git-credentials
+    sourceSecret:
+      name: ae-git-credentials
   strategy:
     type: Docker
   output:

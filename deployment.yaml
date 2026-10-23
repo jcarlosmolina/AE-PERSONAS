@@ -24,7 +24,7 @@ spec:
       containers:
         - name: ae-personas
 # Replace the placeholder below with the name of your OpenShift namespace/project
-          image: 'image-registry.openshift-image-registry.svc:5000/${YourNamespaceOrProjectNameHere}/ae-personas:latest'
+          image: 'image-registry.openshift-image-registry.svc:5000/soporte-colsanitas-dev/ae-personas:latest'
           ports:
             - containerPort: 8085
               protocol: TCP
@@ -95,8 +95,9 @@ spec:
 # Set the values below according to your preferences to assign resources to this microservice
           resources:
             limits:
-              cpu: '1'
-              memory: 500Mi
+              cpu: 300m
+              memory: 350Mi
             requests:
               cpu: 10m
-              memory: 250Mi
+              memory: 200Mi
+
