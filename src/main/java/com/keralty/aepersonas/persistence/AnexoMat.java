@@ -287,7 +287,7 @@ public class AnexoMat extends AbstractAppEntity {
             value = anexoMatdrvValorDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: AnexoMat, Attribute: anexoMatdrvValor");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: AnexoMat, Attribute: anexoMatdrvValor");
         }
         return value;
     }

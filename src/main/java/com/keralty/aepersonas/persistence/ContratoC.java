@@ -1093,7 +1093,7 @@ public class ContratoC extends AbstractAppEntity {
             value = contratoCdrvTipoContratoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvTipoContrato");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvTipoContrato");
         }
         return (value == null ? null : value.trim());
     }
@@ -1112,7 +1112,7 @@ public class ContratoC extends AbstractAppEntity {
             value = contratoCdrvNumPagosDerivations();
         } catch (Exception e) {
             value = Long.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvNumPagos");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvNumPagos");
         }
         return value;
     }
@@ -1132,7 +1132,7 @@ Debe multiplicarse porque bh siempre nos va a devolver el valor por cada mes y e
             value = contratoCdrvValorInicialContratoDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvValorInicialContrato");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvValorInicialContrato");
         }
         return value;
     }
@@ -1151,7 +1151,7 @@ Debe multiplicarse porque bh siempre nos va a devolver el valor por cada mes y e
             value = contratoCdrvValorCuotaAfiliacionDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvValorCuotaAfiliacion");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvValorCuotaAfiliacion");
         }
         return value;
     }
@@ -1170,7 +1170,7 @@ Debe multiplicarse porque bh siempre nos va a devolver el valor por cada mes y e
             value = contratoCdrvValorInicialContratoBBGesDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvValorInicialContratoBBGes");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvValorInicialContratoBBGes");
         }
         return value;
     }
@@ -1254,7 +1254,7 @@ Modificado el 26/8/2016 a petición de JC Quinche<br>
             value = contratoCdrvValorCuotaBrutaDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvValorCuotaBruta");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvValorCuotaBruta");
         }
         return value;
     }
@@ -1305,7 +1305,7 @@ Modificado el 26/8/2016 a petición de JC Quinche<br>
             value = contratoCdrvMostrarPreEnRepAnexoDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvMostrarPreEnRepAnexo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvMostrarPreEnRepAnexo");
         }
         return value;
     }
@@ -1324,7 +1324,7 @@ Modificado el 26/8/2016 a petición de JC Quinche<br>
             value = contratoCdrvMostrarPreEnRepConDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvMostrarPreEnRepCon");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvMostrarPreEnRepCon");
         }
         return value;
     }
@@ -1343,7 +1343,7 @@ Modificado el 26/8/2016 a petición de JC Quinche<br>
             value = contratoCdrvNumFamiliaDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ContratoC, Attribute: contratoCdrvNumFamilia");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ContratoC, Attribute: contratoCdrvNumFamilia");
         }
         return (value == null ? null : value.trim());
     }

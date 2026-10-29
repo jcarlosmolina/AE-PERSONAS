@@ -219,7 +219,7 @@ Si en el Dominio de mi tipo y fecha posterior a la mia no hay ninguno  entonces 
             value = reportesDominiodrvFechaHastaDerivations();
         } catch (Exception e) {
             value = Date.valueOf(Constants.DATE_DEFAULTVALUE);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ReportesDominio, Attribute: reportesDominiodrvFechaHasta");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ReportesDominio, Attribute: reportesDominiodrvFechaHasta");
         }
         return value;
     }
@@ -239,7 +239,7 @@ Si en el Dominio de mi tipo y fecha posterior a la mia no hay ninguno  entonces 
             value = reportesDominiodrvRutaDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ReportesDominio, Attribute: reportesDominiodrvRuta");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ReportesDominio, Attribute: reportesDominiodrvRuta");
         }
         return (value == null ? null : value.trim());
     }

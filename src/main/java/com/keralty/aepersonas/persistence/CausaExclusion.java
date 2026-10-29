@@ -230,7 +230,7 @@ public class CausaExclusion extends AbstractAppEntity {
             value = causaExclusionDrvTextoMostrarDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: CausaExclusion, Attribute: causaExclusionDrvTextoMostrar");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: CausaExclusion, Attribute: causaExclusionDrvTextoMostrar");
         }
         return (value == null ? null : value.trim());
     }

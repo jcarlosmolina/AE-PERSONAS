@@ -809,7 +809,7 @@ public class BeneficiarioC extends AbstractAppEntity {
             value = beneficiarioCdrvValorInicialContratoDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorInicialContrato");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorInicialContrato");
         }
         return value;
     }
@@ -828,7 +828,7 @@ public class BeneficiarioC extends AbstractAppEntity {
             value = beneficiarioCdrvValorCuotaAfiliacionDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaAfiliacion");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaAfiliacion");
         }
         return value;
     }
@@ -847,7 +847,7 @@ public class BeneficiarioC extends AbstractAppEntity {
             value = beneficiarioCdrvValorCuotaPeriodoDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaPeriodo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaPeriodo");
         }
         return value;
     }
@@ -866,7 +866,7 @@ public class BeneficiarioC extends AbstractAppEntity {
             value = beneficiarioCdrvDescuentoComercialDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvDescuentoComercial");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvDescuentoComercial");
         }
         return value;
     }
@@ -885,7 +885,7 @@ public class BeneficiarioC extends AbstractAppEntity {
             value = beneficiarioCdrvDescuentoFinancieroDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvDescuentoFinanciero");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvDescuentoFinanciero");
         }
         return value;
     }
@@ -905,7 +905,7 @@ Cambiado el 26/8/2016 a petición de JC Quinche<br>
             value = beneficiarioCdrvValorCuotaBrutaDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaBruta");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvValorCuotaBruta");
         }
         return value;
     }
@@ -924,7 +924,7 @@ Cambiado el 26/8/2016 a petición de JC Quinche<br>
             value = beneficiarioCdrvTienePreexistenciasDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvTienePreexistencias");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: BeneficiarioC, Attribute: beneficiarioCdrvTienePreexistencias");
         }
         return value;
     }

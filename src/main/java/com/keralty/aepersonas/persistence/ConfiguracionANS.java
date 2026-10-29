@@ -727,7 +727,7 @@ RADIO=1;
             value = configuracionANSdrvTieneCausalDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: ConfiguracionANS, Attribute: configuracionANSdrvTieneCausal");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: ConfiguracionANS, Attribute: configuracionANSdrvTieneCausal");
         }
         return value;
     }

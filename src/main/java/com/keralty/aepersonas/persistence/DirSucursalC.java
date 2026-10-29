@@ -539,7 +539,7 @@ public class DirSucursalC extends AbstractAppEntity {
             value = dirSucursalCdrvCiudadDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: DirSucursalC, Attribute: dirSucursalCdrvCiudad");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: DirSucursalC, Attribute: dirSucursalCdrvCiudad");
         }
         return (value == null ? null : value.trim());
     }

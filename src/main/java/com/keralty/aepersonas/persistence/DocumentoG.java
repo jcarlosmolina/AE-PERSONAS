@@ -757,7 +757,7 @@ public class DocumentoG extends AbstractAppEntity {
             value = documentoGDrvNumContratoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: DocumentoG, Attribute: documentoGDrvNumContrato");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: DocumentoG, Attribute: documentoGDrvNumContrato");
         }
         return (value == null ? null : value.trim());
     }

@@ -418,7 +418,7 @@ public class FrecuenciaAct extends AbstractAppEntity {
             value = frecuenciaActdrvNombreParametricaDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FrecuenciaAct, Attribute: frecuenciaActdrvNombreParametrica");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FrecuenciaAct, Attribute: frecuenciaActdrvNombreParametrica");
         }
         return (value == null ? null : value.trim());
     }

@@ -300,7 +300,7 @@ public class Periodicidad extends AbstractAppEntity {
             value = periodicidaddrvNumPagosDerivations();
         } catch (Exception e) {
             value = Long.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: Periodicidad, Attribute: periodicidaddrvNumPagos");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: Periodicidad, Attribute: periodicidaddrvNumPagos");
         }
         return value;
     }

@@ -482,7 +482,7 @@ RADIO=1;
             value = causalDrvTextoMostrarDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: Causal, Attribute: causalDrvTextoMostrar");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: Causal, Attribute: causalDrvTextoMostrar");
         }
         return (value == null ? null : value.trim());
     }

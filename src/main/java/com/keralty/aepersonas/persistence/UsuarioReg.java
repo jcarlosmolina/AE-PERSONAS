@@ -820,7 +820,7 @@ public class UsuarioReg extends AbstractAppEntity {
             value = usuarioRegdrvEdadDerivations();
         } catch (Exception e) {
             value = Long.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: UsuarioReg, Attribute: usuarioRegdrvEdad");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: UsuarioReg, Attribute: usuarioRegdrvEdad");
         }
         return value;
     }

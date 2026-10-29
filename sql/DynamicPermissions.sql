@@ -57,7 +57,6 @@ INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_14956
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1517847314432997UIServ_1', 'tdelcontsindocsol', 'Eliminar', '', 'S');
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1537799356416380UIServ_1', 'OGANULARSOL', 'Anular solicitudes', '', 'S');
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1537802371072443UIServ_1', 'OGANULARSOLAUX', 'OGANULARSOLAUX', '', 'S');
-INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1544717205504325UIServ_1', 'TGACTDIRECCIONES', 'Actualizar direcciones', '', 'S');
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1547136925696950UIServ_1', 'TGACTTIPOFACTURA', 'TGACTTIPOFACTURA', '', 'S');
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1584043524096102UIServ_1', 'OGSOLNOVSETTRAMITADO', 'Marcar como Tramitadas as Solicitudes de Novedad', '', 'S');
 INSERT INTO IU (idIU, IUName, IUAlias, IUDescription, IUType) VALUES ('IGl_1584439099392074UIServ_1', 'TGSOLNOVSETTRA', 'TGSOLNOVSETTRA', '', 'S');

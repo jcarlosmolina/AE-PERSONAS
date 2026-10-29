@@ -535,7 +535,7 @@ Concatenar observaciones y posibles valores<br>
             value = preguntaPdrvRespuestaDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: PreguntaP, Attribute: preguntaPdrvRespuesta");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: PreguntaP, Attribute: preguntaPdrvRespuesta");
         }
         return (value == null ? null : value.trim());
     }
@@ -598,7 +598,7 @@ Utilizaremos el ; como separador para los distintos valores<br>
             value = preguntaPdrvRespuestaSiNoDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: PreguntaP, Attribute: preguntaPdrvRespuestaSiNo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: PreguntaP, Attribute: preguntaPdrvRespuestaSiNo");
         }
         return value;
     }

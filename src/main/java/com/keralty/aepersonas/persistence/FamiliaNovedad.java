@@ -634,7 +634,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedaddrvTieneUsuarioActivoDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvTieneUsuarioActivo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvTieneUsuarioActivo");
         }
         return value;
     }
@@ -653,7 +653,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedaddrvNumTitularesDerivations();
         } catch (Exception e) {
             value = Long.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvNumTitulares");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvNumTitulares");
         }
         return value;
     }
@@ -672,7 +672,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedaddrvTieneNuevoTitularDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvTieneNuevoTitular");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvTieneNuevoTitular");
         }
         return value;
     }
@@ -691,7 +691,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadTitDrvNombreCompletoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvNombreCompleto");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvNombreCompleto");
         }
         return (value == null ? null : value.trim());
     }
@@ -710,7 +710,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadTitDrvIdentificacionDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvIdentificacion");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvIdentificacion");
         }
         return (value == null ? null : value.trim());
     }
@@ -729,7 +729,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadTitDrvNombreAnteriorDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvNombreAnterior");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadTitDrvNombreAnterior");
         }
         return (value == null ? null : value.trim());
     }
@@ -748,7 +748,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadDrvTieneNuevaDirDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneNuevaDir");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneNuevaDir");
         }
         return value;
     }
@@ -767,7 +767,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadDrvTieneFirmaTitDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneFirmaTit");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneFirmaTit");
         }
         return value;
     }
@@ -786,7 +786,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadDrvTieneFirmaNuevoTitDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneFirmaNuevoTit");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvTieneFirmaNuevoTit");
         }
         return value;
     }
@@ -805,7 +805,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadDrvValidarCP1Derivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvValidarCP1");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvValidarCP1");
         }
         return value;
     }
@@ -824,7 +824,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedadDrvValidarCT1Derivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvValidarCT1");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedadDrvValidarCT1");
         }
         return value;
     }
@@ -843,7 +843,7 @@ public class FamiliaNovedad extends AbstractAppEntity {
             value = familiaNovedaddrvEdadUsuTitularDerivations();
         } catch (Exception e) {
             value = Long.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvEdadUsuTitular");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: FamiliaNovedad, Attribute: familiaNovedaddrvEdadUsuTitular");
         }
         return value;
     }

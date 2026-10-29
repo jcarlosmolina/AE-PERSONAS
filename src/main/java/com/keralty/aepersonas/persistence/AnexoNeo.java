@@ -339,7 +339,7 @@ public class AnexoNeo extends AbstractAppEntity {
             value = anexoNeodrvValorDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: AnexoNeo, Attribute: anexoNeodrvValor");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: AnexoNeo, Attribute: anexoNeodrvValor");
         }
         return value;
     }

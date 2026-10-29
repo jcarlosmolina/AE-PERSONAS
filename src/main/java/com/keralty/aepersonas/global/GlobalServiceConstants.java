@@ -2808,30 +2808,6 @@ public class GlobalServiceConstants {
     /** Agents allowed to execute the service OGANULARSOLAUX **/
     public static final String GS_OGANULARSOLAUX_SRVAGENTS = "SuperAdmin";
 
-    // Service (TGACTDIRECCIONES)
-    /** <code>TGACTDIRECCIONES</code> service Name. */
-    public static final String G_SERV_NAME_TGACTDIRECCIONES = "TGACTDIRECCIONES";
-    /** <code>TGACTDIRECCIONES</code> service Alias. */
-    public static final String G_SERV_ALIAS_TGACTDIRECCIONES = "Actualizar direcciones";
-    /** <code>TGACTDIRECCIONES</code> service id. */
-    public static final String G_SERV_ID_TGACTDIRECCIONES = "IGl_1544717205504325_Alias";
-    // Inboundargument (tGACTDIRECCIONESptSolicitud)
-    /** <code>tGACTDIRECCIONESptSolicitud</code> inbound argument id. */
-    public static final String GS_ARG_ID_TGACTDIRECCIONES_TGACTDIRECCIONESPTSOLICITUD = "IGl_1544717205504325Arg_1_Alias";
-    /** <code>tGACTDIRECCIONESptSolicitud</code> inbound argument Name. */
-    public static final String GS_ARG_NAME_TGACTDIRECCIONES_TGACTDIRECCIONESPTSOLICITUD = "ptSolicitud";
-    /** <code>tGACTDIRECCIONESptSolicitud</code> inbound argument Alias. */
-    public static final String GS_ARG_ALIAS_TGACTDIRECCIONES_TGACTDIRECCIONESPTSOLICITUD = "Solicitud";
-    // Inboundargument (tGACTDIRECCIONESptTipo)
-    /** <code>tGACTDIRECCIONESptTipo</code> inbound argument id. */
-    public static final String GS_ARG_ID_TGACTDIRECCIONES_TGACTDIRECCIONESPTTIPO = "IGl_1544717205504325Arg_2_Alias";
-    /** <code>tGACTDIRECCIONESptTipo</code> inbound argument Name. */
-    public static final String GS_ARG_NAME_TGACTDIRECCIONES_TGACTDIRECCIONESPTTIPO = "ptTipo";
-    /** <code>tGACTDIRECCIONESptTipo</code> inbound argument Alias. */
-    public static final String GS_ARG_ALIAS_TGACTDIRECCIONES_TGACTDIRECCIONESPTTIPO = "Tipo";
-    /** Agents allowed to execute the service TGACTDIRECCIONES **/
-    public static final String GS_TGACTDIRECCIONES_SRVAGENTS = "Admin,SuperAdmin,Asesor,AreaMedica,Afiliaciones,RespRegional,Gestor,MesaDeApoyo,Funcionario";
-
     // Service (TGACTTIPOFACTURA)
     /** <code>TGACTTIPOFACTURA</code> service Name. */
     public static final String G_SERV_NAME_TGACTTIPOFACTURA = "TGACTTIPOFACTURA";

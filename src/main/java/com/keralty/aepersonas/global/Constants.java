@@ -2472,20 +2472,6 @@ public final class Constants {
     public static final String GS_ARG_NAME_OGANULARSOLAUX_OGANULARSOLAUXPTFECHACAD = "ptFechaCad";
     public static final String GS_ARG_ID_OGANULARSOLAUX_OGANULARSOLAUXPTFECHACAD = "IGl_1537802371072443Arg_2_Alias";
 
-    // Service (TGACTDIRECCIONES)
-    /** <code>TGACTDIRECCIONES</code> service id. */
-    public static final String G_SERV_ID_TGACTDIRECCIONES = "IGl_1544717205504325_Alias";
-    /** <code>TGACTDIRECCIONES</code> service name. */
-    public static final String G_SERV_NAME_TGACTDIRECCIONES = "TGACTDIRECCIONES";
-    /** Agents allowed to execute the service TGACTDIRECCIONES **/
-    public static final String GS_TGACTDIRECCIONES_SRVAGENTS = "Admin,SuperAdmin,Asesor,AreaMedica,Afiliaciones,RespRegional,Gestor,MesaDeApoyo,Funcionario";
-    /** <code>ptSolicitud</code> inbound argument id. */
-    public static final String GS_ARG_NAME_TGACTDIRECCIONES_TGACTDIRECCIONESPTSOLICITUD = "ptSolicitud";
-    public static final String GS_ARG_ID_TGACTDIRECCIONES_TGACTDIRECCIONESPTSOLICITUD = "IGl_1544717205504325Arg_1_Alias";
-    /** <code>ptTipo</code> inbound argument id. */
-    public static final String GS_ARG_NAME_TGACTDIRECCIONES_TGACTDIRECCIONESPTTIPO = "ptTipo";
-    public static final String GS_ARG_ID_TGACTDIRECCIONES_TGACTDIRECCIONESPTTIPO = "IGl_1544717205504325Arg_2_Alias";
-
     // Service (TGACTTIPOFACTURA)
     /** <code>TGACTTIPOFACTURA</code> service id. */
     public static final String G_SERV_ID_TGACTTIPOFACTURA = "IGl_1547136925696950_Alias";
@@ -3305,39 +3291,6 @@ public final class Constants {
     /** <code>pfSolicitud</code> inbound argument id. */
     public static final String UF_ARG_NAME_FUGETLISTAERRORES_PFSOLICITUD = "pfSolicitud";
     public static final String UF_ARG_ID_FUGETLISTAERRORES_PFSOLICITUD = "FGl_1460622327808896Arg_1_Alias";
-    // User Function (fuCrearPersonaCORE)
-    /** <code>fuCrearPersonaCORE</code> user function id. */
-    public static final String UF_ID_FUCREARPERSONACORE = "FGl_1462195453952400_Alias";
-    /** <code>fuCrearPersonaCORE</code> user function name. */
-    public static final String UF_NAME_FUCREARPERSONACORE = "fuCrearPersonaCORE";
-    /** <code>pfPersona</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUCREARPERSONACORE_PFPERSONA = "pfPersona";
-    public static final String UF_ARG_ID_FUCREARPERSONACORE_PFPERSONA = "FGl_1462195453952400Arg_1_Alias";
-    /** <code>pfProtDatos</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUCREARPERSONACORE_PFPROTDATOS = "pfProtDatos";
-    public static final String UF_ARG_ID_FUCREARPERSONACORE_PFPROTDATOS = "FGl_1462195453952400Arg_2_Alias";
-    // User Function (fuActualizarPersonaCORE)
-    /** <code>fuActualizarPersonaCORE</code> user function id. */
-    public static final String UF_ID_FUACTUALIZARPERSONACORE = "FGl_1462195453952197_Alias";
-    /** <code>fuActualizarPersonaCORE</code> user function name. */
-    public static final String UF_NAME_FUACTUALIZARPERSONACORE = "fuActualizarPersonaCORE";
-    /** <code>pfPersona</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUACTUALIZARPERSONACORE_PFPERSONA = "pfPersona";
-    public static final String UF_ARG_ID_FUACTUALIZARPERSONACORE_PFPERSONA = "FGl_1462195453952197Arg_1_Alias";
-    /** <code>pfProtDatos</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUACTUALIZARPERSONACORE_PFPROTDATOS = "pfProtDatos";
-    public static final String UF_ARG_ID_FUACTUALIZARPERSONACORE_PFPROTDATOS = "FGl_1462195453952197Arg_2_Alias";
-    /** <code>pfNumSolicitud</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUACTUALIZARPERSONACORE_PFNUMSOLICITUD = "pfNumSolicitud";
-    public static final String UF_ARG_ID_FUACTUALIZARPERSONACORE_PFNUMSOLICITUD = "FGl_1462195453952197Arg_3_Alias";
-    // User Function (fuCrearZipDocumentacionAuto)
-    /** <code>fuCrearZipDocumentacionAuto</code> user function id. */
-    public static final String UF_ID_FUCREARZIPDOCUMENTACIONAUTO = "FGl_1464693424128292_Alias";
-    /** <code>fuCrearZipDocumentacionAuto</code> user function name. */
-    public static final String UF_NAME_FUCREARZIPDOCUMENTACIONAUTO = "fuCrearZipDocumentacionAuto";
-    /** <code>psSolicitud</code> inbound argument id. */
-    public static final String UF_ARG_NAME_FUCREARZIPDOCUMENTACIONAUTO_PSSOLICITUD = "psSolicitud";
-    public static final String UF_ARG_ID_FUCREARZIPDOCUMENTACIONAUTO_PSSOLICITUD = "FGl_1464693424128292Arg_1_Alias";
     // User Function (fuGetCodTarifaProdPlanAnyo)
     /** <code>fuGetCodTarifaProdPlanAnyo</code> user function id. */
     public static final String UF_ID_FUGETCODTARIFAPRODPLANANYO = "FGl_1466418331648225_Alias";

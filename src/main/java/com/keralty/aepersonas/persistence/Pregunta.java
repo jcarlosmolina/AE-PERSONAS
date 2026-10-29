@@ -707,7 +707,7 @@ public class Pregunta extends AbstractAppEntity {
             value = preguntadrvValoresPosiblesDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: Pregunta, Attribute: preguntadrvValoresPosibles");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: Pregunta, Attribute: preguntadrvValoresPosibles");
         }
         return (value == null ? null : value.trim());
     }

@@ -54,7 +54,6 @@ import com.keralty.aepersonas.sqlutils.SQLWhereOperandLiteral;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandOVParameter;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathAttribute;
 import com.keralty.aepersonas.sqlutils.SQLWhereOperandPathInstance;
-import com.keralty.aepersonas.viewmodel.userfunctions.FuActualizarPersonaCORERequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuAnadirTextoRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuBuscarDocGestorNumIdRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuBuscarDocGestorSolicitudRequest;
@@ -69,8 +68,6 @@ import com.keralty.aepersonas.viewmodel.userfunctions.FuCallSPgetusugrabadornovR
 import com.keralty.aepersonas.viewmodel.userfunctions.FuCheckRegimenSubsidiadoRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuContieneCharEspecialRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuContratoExentoDocSolRequest;
-import com.keralty.aepersonas.viewmodel.userfunctions.FuCrearPersonaCORERequest;
-import com.keralty.aepersonas.viewmodel.userfunctions.FuCrearZipDocumentacionAutoRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuEnviarEmailDevDocRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuEnviarEmailRequest;
 import com.keralty.aepersonas.viewmodel.userfunctions.FuEnviarSMSRequest;
@@ -1460,78 +1457,6 @@ public class UserFunctions extends AbstractService {
 
     public String fugetListaErroresFun(FugetListaErroresRequest request) {
         return fugetListaErroresFun(request.getPfSolicitudInstance());
-    }
-
-    /** 
-     * Method that solves the fuCrearPersonaCORE user function.
-     *
-     * @param pfPersona This parameter represents the pfPersona inbound argument.
-     *
-     * @param pfProtDatos This parameter represents the pfProtDatos inbound argument.
-     *
-     * @return Return String value of the User Function
-     */
-    @Transactional(Transactional.TxType.SUPPORTS)
-    public String fuCrearPersonaCOREFun(Persona pfPersona, ProteccionDatos pfProtDatos) {
-
-        // COMMENTS:
-        // Invoca al WS que crea una persona en el CORE
-        FuCrearPersonaCORERequest request = new FuCrearPersonaCORERequest();
-        request.setPfPersonaInstance(pfPersona);
-        request.setPfProtDatosInstance(pfProtDatos);
-        return userFunctionsProxy.fuCrearPersonaCOREFun(request);
-    }
-
-    public String fuCrearPersonaCOREFun(FuCrearPersonaCORERequest request) {
-        return fuCrearPersonaCOREFun(request.getPfPersonaInstance(), request.getPfProtDatosInstance());
-    }
-
-    /** 
-     * Method that solves the fuActualizarPersonaCORE user function.
-     *
-     * @param pfPersona This parameter represents the pfPersona inbound argument.
-     *
-     * @param pfProtDatos This parameter represents the pfProtDatos inbound argument.
-     *
-     * @param pfNumSolicitud GdC 37: El número de solicitud en el marco de la cual llamamos a esta fu, para hacer log.
-     *
-     * @return Return String value of the User Function
-     */
-    @Transactional(Transactional.TxType.SUPPORTS)
-    public String fuActualizarPersonaCOREFun(Persona pfPersona, ProteccionDatos pfProtDatos, String pfNumSolicitud) {
-
-        // COMMENTS:
-        // Invoca al WS que actualiza una persona en el CORE
-        FuActualizarPersonaCORERequest request = new FuActualizarPersonaCORERequest();
-        request.setPfPersonaInstance(pfPersona);
-        request.setPfProtDatosInstance(pfProtDatos);
-        request.setPfNumSolicitud(pfNumSolicitud);
-        return userFunctionsProxy.fuActualizarPersonaCOREFun(request);
-    }
-
-    public String fuActualizarPersonaCOREFun(FuActualizarPersonaCORERequest request) {
-        return fuActualizarPersonaCOREFun(request.getPfPersonaInstance(), request.getPfProtDatosInstance(), request.getPfNumSolicitud());
-    }
-
-    /** 
-     * Method that solves the fuCrearZipDocumentacionAuto user function.
-     *
-     * @param psSolicitud This parameter represents the psSolicitud inbound argument.
-     *
-     * @return Return String value of the User Function
-     */
-    @Transactional(Transactional.TxType.SUPPORTS)
-    public String fuCrearZipDocumentacionAutoFun(Solicitud psSolicitud) {
-
-        // COMMENTS:
-        // Genera los documentos que corresponda para la solictud (los que tengan que enviarse de forma automática) y los empaqueta en un zip. Devuelve el path y nombre del zip
-        FuCrearZipDocumentacionAutoRequest request = new FuCrearZipDocumentacionAutoRequest();
-        request.setPsSolicitudInstance(psSolicitud);
-        return userFunctionsProxy.fuCrearZipDocumentacionAutoFun(request);
-    }
-
-    public String fuCrearZipDocumentacionAutoFun(FuCrearZipDocumentacionAutoRequest request) {
-        return fuCrearZipDocumentacionAutoFun(request.getPsSolicitudInstance());
     }
 
     /** 

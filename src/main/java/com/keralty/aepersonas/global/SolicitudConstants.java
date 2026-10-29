@@ -3005,29 +3005,6 @@ public final class SolicitudConstants {
     public static final String ARG_ID_SEARCHDOCUMENTOSOLICITUD_SOLICITUDSEARCHDOCUMENTOSOLICITUDPFUIDDOCENGESTOR = "Clas_1431957012480960Ser_80Arg_3_Alias";
     /** <code>solicitudsearchDocumentoSolicitudpfuIdDocEnGestor</code> outbound argument alias. */
     public static final String ARG_ALIAS_SEARCHDOCUMENTOSOLICITUD_SOLICITUDSEARCHDOCUMENTOSOLICITUDPFUIDDOCENGESTOR = "pfu_IdDocEnGestor";
-    // Service (formarArchivoDocumentacion)
-    /** <code>formarArchivoDocumentacion</code> service id. */
-    public static final String SERV_ID_FORMARARCHIVODOCUMENTACION = "Clas_1431957012480960Ser_96_Alias";
-    /** <code>formarArchivoDocumentacion</code> service name. */
-    public static final String SERV_NAME_FORMARARCHIVODOCUMENTACION = "formarArchivoDocumentacion";
-    /** <code>formarArchivoDocumentacion</code> service alias. */
-    public static final String SERV_ALIAS_FORMARARCHIVODOCUMENTACION = "formarArchivoDocumentacion";
-    /** Agents allowed to execute the service formarArchivoDocumentacion **/
-    public static final String FORMARARCHIVODOCUMENTACION_SRVAGENTS = "";
-    // Inbound arguments
-    /** <code>solicitudformarArchivoDocumentacionpthisSolicitud</code> inbound argument name. */
-    public static final String ARG_NAME_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPTHISSOLICITUD = "p_thisSolicitud";
-    /** <code>solicitudformarArchivoDocumentacionpthisSolicitud</code> inbound argument id. */
-    public static final String ARG_ID_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPTHISSOLICITUD = "Clas_1431957012480960Ser_96Arg_1_Alias";
-    /** <code>solicitudformarArchivoDocumentacionpthisSolicitud</code> inbound argument alias. */
-    public static final String ARG_ALIAS_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPTHISSOLICITUD = "Solicitud";
-    // Outbound arguments
-    /** <code>solicitudformarArchivoDocumentacionpsNombreArchivo</code> outbound argument name. */
-    public static final String ARG_NAME_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPSNOMBREARCHIVO = "solicitudformarArchivoDocumentacionpsNombreArchivo";
-    /** <code>solicitudformarArchivoDocumentacionpsNombreArchivo</code> outbound argument id. */
-    public static final String ARG_ID_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPSNOMBREARCHIVO = "Clas_1431957012480960Ser_96Arg_2_Alias";
-    /** <code>solicitudformarArchivoDocumentacionpsNombreArchivo</code> outbound argument alias. */
-    public static final String ARG_ALIAS_FORMARARCHIVODOCUMENTACION_SOLICITUDFORMARARCHIVODOCUMENTACIONPSNOMBREARCHIVO = "Nombre archivo";
     // Service (setCodTarifa)
     /** <code>setCodTarifa</code> service id. */
     public static final String SERV_ID_SETCODTARIFA = "Clas_1431957012480960Ser_98_Alias";

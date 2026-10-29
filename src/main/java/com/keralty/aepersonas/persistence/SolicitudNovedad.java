@@ -1841,7 +1841,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvExigeContratoActivoDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeContratoActivo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeContratoActivo");
         }
         return value;
     }
@@ -1860,7 +1860,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvExigeFamiliaActivaDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeFamiliaActiva");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeFamiliaActiva");
         }
         return value;
     }
@@ -1879,7 +1879,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadContraDrvNombreCompletoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadContraDrvNombreCompleto");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadContraDrvNombreCompleto");
         }
         return (value == null ? null : value.trim());
     }
@@ -1898,7 +1898,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvTarifaDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvTarifa");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvTarifa");
         }
         return (value == null ? null : value.trim());
     }
@@ -1917,7 +1917,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvConvenioDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvConvenio");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvConvenio");
         }
         return (value == null ? null : value.trim());
     }
@@ -1936,7 +1936,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadContraDrvIdentificacionDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadContraDrvIdentificacion");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadContraDrvIdentificacion");
         }
         return (value == null ? null : value.trim());
     }
@@ -1955,7 +1955,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvGrupoAsociadoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvGrupoAsociado");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvGrupoAsociado");
         }
         return (value == null ? null : value.trim());
     }
@@ -1974,7 +1974,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvPeriodicidadDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPeriodicidad");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPeriodicidad");
         }
         return (value == null ? null : value.trim());
     }
@@ -1993,7 +1993,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvPermiteAddFamDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPermiteAddFam");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPermiteAddFam");
         }
         return value;
     }
@@ -2012,7 +2012,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvPermiteDelFamDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPermiteDelFam");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvPermiteDelFam");
         }
         return value;
     }
@@ -2031,7 +2031,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvExigeDocSolicitudDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeDocSolicitud");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeDocSolicitud");
         }
         return value;
     }
@@ -2050,7 +2050,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvExigeDocPersonaDerivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeDocPersona");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvExigeDocPersona");
         }
         return value;
     }
@@ -2069,7 +2069,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvReportColOscuroDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportColOscuro");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportColOscuro");
         }
         return (value == null ? null : value.trim());
     }
@@ -2088,7 +2088,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvReportColClaroDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportColClaro");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportColClaro");
         }
         return (value == null ? null : value.trim());
     }
@@ -2107,7 +2107,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvReportLogoDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportLogo");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvReportLogo");
         }
         return (value == null ? null : value.trim());
     }
@@ -2126,7 +2126,7 @@ Datos adicionales: Se debe ingresar el número de meses. El valor mínimo es 6, 
             value = solicitudNovedadDrvNuevaPeriodicidadDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvNuevaPeriodicidad");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvNuevaPeriodicidad");
         }
         return (value == null ? null : value.trim());
     }
@@ -2331,7 +2331,7 @@ Este derivado sirve para:
             value = solicitudNovedaddrvSemaforoGrabAseDerivations();
         } catch (Exception e) {
             value = Double.valueOf(0);
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedaddrvSemaforoGrabAse");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedaddrvSemaforoGrabAse");
         }
         return value;
     }
@@ -2350,7 +2350,7 @@ Este derivado sirve para:
             value = solicitudNovedadDrvNumRadicadoStrDerivations();
         } catch (Exception e) {
             value = "";
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvNumRadicadoStr");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvNumRadicadoStr");
         }
         return (value == null ? null : value.trim());
     }
@@ -2369,7 +2369,7 @@ Este derivado sirve para:
             value = solicitudNovedadDrvValidarPS1Derivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvValidarPS1");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvValidarPS1");
         }
         return value;
     }
@@ -2388,7 +2388,7 @@ Este derivado sirve para:
             value = solicitudNovedadDrvValidarPS2Derivations();
         } catch (Exception e) {
             value = false;
-            org.slf4j.LoggerFactory.getLogger(this.getClass()).error("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvValidarPS2");
+            org.slf4j.LoggerFactory.getLogger(this.getClass()).debug("Definition Class: SolicitudNovedad, Attribute: solicitudNovedadDrvValidarPS2");
         }
         return value;
     }
