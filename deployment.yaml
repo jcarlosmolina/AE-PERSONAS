@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ae-personas
+  labels:
+    app: ae-personas
+    app.kubernetes.io/component: ae-personas
+    app.kubernetes.io/instance: ae-personas
+    app.kubernetes.io/name: ae-personas
+    app.kubernetes.io/part-of: ae-app
+    app.openshift.io/runtime: ae-personas
+spec:
+# Set the desired number of replicas
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ae-personas
+  template:
+    metadata:
+      labels:
+        app: ae-personas
+        deployment: ae-personas
+    spec:
+      containers:
+        - name: ae-personas
+# Replace the placeholder below with the name of your OpenShift namespace/project
+          image: 'image-registry.openshift-image-registry.svc:5000/soporte-colsanitas-dev/ae-personas:latest'
+          ports:
+            - containerPort: 8085
+              protocol: TCP
+          env:
+# Replace the TZ env variable with your desired timezone. For a list of valid timezones see https://www.iana.org/time-zones
+          - name: TZ
+            value: 'America/Bogota'
+          - name: quarkus.datasource.jdbc.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-database-jdbc-url
+          - name: quarkus.datasource.username
+            valueFrom:
+              secretKeyRef:
+                name: ae-secret
+                key: db-username
+          - name: quarkus.datasource.password
+            valueFrom:
+              secretKeyRef:
+                name: ae-secret
+                key: db-password
+          - name: quarkus.rest-client.ae-apigateway.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-apigateway-url
+          - name: quarkus.rest-client.ae-usuarios.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-usuarios-url
+          - name: quarkus.rest-client.ae-configuraciones.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-configuraciones-url
+          - name: quarkus.rest-client.ae-reportes.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-reportes-url
+          - name: quarkus.rest-client.ae-firmas.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-firmas-url
+          - name: quarkus.rest-client.ae-personas.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-personas-url
+          - name: quarkus.rest-client.ae-solicitudes.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-solicitudes-url
+          - name: quarkus.rest-client.ae-novedades.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-novedades-url
+          - name: quarkus.rest-client.ae-generasolicitud.url
+            valueFrom:
+              configMapKeyRef:
+                name: ae-config
+                key: ae-generasolicitud-url
+# Set the values below according to your preferences to assign resources to this microservice
+          resources:
+            limits:
+              cpu: 300m
+              memory: 350Mi
+            requests:
+              cpu: 10m
+              memory: 200Mi
+

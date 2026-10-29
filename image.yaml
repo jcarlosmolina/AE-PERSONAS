@@ -1,0 +1,11 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ae-personas
+  labels:
+    app: ae-personas
+    app.kubernetes.io/component: ae-personas
+    app.kubernetes.io/instance: ae-personas
+    app.kubernetes.io/name: ae-personas
+    app.kubernetes.io/part-of: ae-app
+    app.openshift.io/runtime: ae-personas

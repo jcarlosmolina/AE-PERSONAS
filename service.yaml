@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ae-personas
+  labels:
+    app: ae-personas
+    app.kubernetes.io/component: ae-personas
+    app.kubernetes.io/instance: ae-personas
+    app.kubernetes.io/name: ae-personas
+    app.kubernetes.io/part-of: ae-app
+    app.openshift.io/runtime: ae-personas
+spec:
+  selector:
+    app: ae-personas
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085

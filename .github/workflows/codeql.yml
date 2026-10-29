@@ -1,0 +1,227 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  analyze:
+    name: Analyze Code
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Compute report file name
+        id: report
+        shell: bash
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          TS="$(TZ=Europe/Madrid date +'%Y%m%d_%H%M%S')"
+          {
+            echo "repo=${REPO}"
+            echo "ts=${TS}"
+            echo "zip=informe-codeql-${REPO}_${TS}"
+            echo "file=informe-codeql-${REPO}_${TS}.html"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: "17"
+          distribution: temurin
+          cache: maven
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: java-kotlin
+          build-mode: manual
+          queries: security-and-quality
+
+      - name: Build Quarkus Application
+        run: mvn -B clean package -DskipTests
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:java-kotlin"
+          output: ${{ runner.temp }}/codeql-sarif
+
+      - name: Generate HTML report
+        if: always()
+        env:
+          SARIF_DIR: ${{ runner.temp }}/codeql-sarif
+          HTML_FILE: ${{ runner.temp }}/${{ steps.report.outputs.file }}
+          REPO_NAME: ${{ steps.report.outputs.repo }}
+          REPORT_TS: ${{ steps.report.outputs.ts }}
+        run: |
+          python3 <<'PY'
+          import json
+          import html
+          import os
+          from pathlib import Path
+
+          sarif_dir = Path(os.environ["SARIF_DIR"])
+          html_file = Path(os.environ["HTML_FILE"])
+
+
+          def find_rule(result, components, rules_by_id):
+              # CodeQL references rules by index inside a tool component:
+              # component 0 = driver, 1..n = extensions (query packs)
+              ref = result.get("rule", {})
+              idx = ref.get("index")
+              comp_idx = ref.get("toolComponent", {}).get("index", 0)
+              if idx is not None and comp_idx < len(components):
+                  comp_rules = components[comp_idx].get("rules", [])
+                  if idx < len(comp_rules):
+                      return comp_rules[idx]
+              rid = result.get("ruleId") or ref.get("id")
+              return rules_by_id.get(rid, {})
+
+
+          def severity(result, rule):
+              # Security queries: security-severity score (as in Code scanning)
+              score = rule.get("properties", {}).get("security-severity")
+              if score is not None:
+                  try:
+                      s = float(score)
+                  except ValueError:
+                      s = None
+                  if s is not None:
+                      if s >= 9.0:
+                          return "Critical"
+                      if s >= 7.0:
+                          return "High"
+                      if s >= 4.0:
+                          return "Medium"
+                      return "Low"
+              # Other queries: result level, then rule default, then SARIF default
+              level = (
+                  result.get("level")
+                  or rule.get("defaultConfiguration", {}).get("level")
+                  or "warning"
+              )
+              return level.capitalize()
+
+
+          files = list(sarif_dir.rglob("*.sarif")) if sarif_dir.exists() else []
+
+          if not files:
+              print("No se han encontrado archivos SARIF.")
+              html_file.write_text(
+                  "<!doctype html><html lang='es'><meta charset='utf-8'>"
+                  "<title>Informe CodeQL</title>"
+                  "<h1>Informe CodeQL</h1>"
+                  "<p>No hay resultados SARIF disponibles en esta ejecución.</p>"
+                  "</html>",
+                  encoding="utf-8"
+              )
+          else:
+              rows = []
+
+              for file in files:
+                  with file.open(encoding="utf-8") as stream:
+                      data = json.load(stream)
+
+                  for run in data.get("runs", []):
+                      tool = run.get("tool", {})
+                      components = [tool.get("driver", {})] + tool.get("extensions", [])
+                      rules_by_id = {}
+                      for comp in components:
+                          for rule in comp.get("rules", []):
+                              rules_by_id[rule.get("id")] = rule
+
+                      for result in run.get("results", []):
+                          rule = find_rule(result, components, rules_by_id)
+                          rule_id = result.get("ruleId") or rule.get("id", "N/A")
+                          message = result.get("message", {}).get("text", "")
+
+                          locations = result.get("locations", [])
+                          location = "No especificada"
+
+                          if locations:
+                              physical = locations[0].get("physicalLocation", {})
+                              artifact = physical.get("artifactLocation", {})
+                              region = physical.get("region", {})
+                              location = artifact.get("uri", "Desconocida")
+
+                              if region.get("startLine"):
+                                  location += f":{region['startLine']}"
+
+                          rows.append({
+                              "level": severity(result, rule),
+                              "rule": rule_id,
+                              "name": rule.get("shortDescription", {}).get("text")
+                                      or rule.get("name", ""),
+                              "message": message,
+                              "location": location,
+                          })
+
+              def cell(value):
+                  return html.escape(str(value))
+
+              body = "\n".join(
+                  "<tr>"
+                  f"<td>{cell(r['level'])}</td>"
+                  f"<td>{cell(r['rule'])}</td>"
+                  f"<td>{cell(r['name'])}</td>"
+                  f"<td>{cell(r['message'])}</td>"
+                  f"<td>{cell(r['location'])}</td>"
+                  "</tr>"
+                  for r in rows
+              )
+
+              document = f"""<!doctype html>
+          <html lang="es">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Informe CodeQL - {html.escape(os.environ["REPO_NAME"])} - {html.escape(os.environ["REPORT_TS"])}</title>
+          <style>
+          body {{ font: 15px Arial, sans-serif; margin: 2rem; color: #222; }}
+          .summary {{ margin-bottom: 1rem; }}
+          .table-wrap {{ overflow-x: auto; }}
+          table {{ width: 100%; border-collapse: collapse; }}
+          th, td {{ padding: 10px; border: 1px solid #ddd;
+                    text-align: left; overflow-wrap: anywhere; }}
+          th {{ background: #eee; }}
+          tr:nth-child(even) {{ background: #f8f8f8; }}
+          </style>
+          </head>
+          <body>
+          <h1>Informe de resultados CodeQL - {html.escape(os.environ["REPO_NAME"])} - {html.escape(os.environ["REPORT_TS"])}</h1>
+          <p class="summary">Resultados encontrados: {len(rows)}</p>
+          <div class="table-wrap">
+          <table>
+          <thead><tr>
+          <th>Nivel</th><th>Regla</th><th>Nombre</th>
+          <th>Descripción</th><th>Ubicación</th>
+          </tr></thead>
+          <tbody>{body}</tbody>
+          </table>
+          </div>
+          </body>
+          </html>"""
+
+              html_file.write_text(document, encoding="utf-8")
+
+          print(f"Informe generado en: {html_file}")
+          PY
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.report.outputs.zip }}
+          path: ${{ runner.temp }}/${{ steps.report.outputs.file }}
+          if-no-files-found: warn
+          retention-days: 30
