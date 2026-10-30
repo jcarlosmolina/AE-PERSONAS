@@ -180,7 +180,11 @@ public class CuestionarioPJpaRepositoryImpl extends AbstractRepository implement
     public SQLCount assocOperator002Range1Query (CuestionarioP instance, SQLSelect superQuery) throws SystemException {
         try {
             // Path starts with a class in the subquery
-            return new SQLCount(superQuery, CuestionarioPConstants.CLASS_NAME, CuestionarioPConstants.ROLE_NAME_SECCIONES + "." + SeccionPConstants.ROLE_NAME_PREGUNTAS);
+        	if (superQuery == null) {
+        		return new SQLCount(CuestionarioPConstants.CLASS_NAME, CuestionarioPConstants.ROLE_NAME_SECCIONES + "." + SeccionPConstants.ROLE_NAME_PREGUNTAS, instance.getOid());
+        	} else {
+        		return new SQLCount(superQuery, CuestionarioPConstants.CLASS_NAME, CuestionarioPConstants.ROLE_NAME_SECCIONES + "." + SeccionPConstants.ROLE_NAME_PREGUNTAS);
+        	}
         } catch (Exception e) {
             String exceptionMessage = "Definition Class: CuestionarioP, Assoc.Operator: AssocOperator002, Method: assocOperator002Range1Query";
             org.slf4j.LoggerFactory.getLogger(this.getClass()).error(exceptionMessage);

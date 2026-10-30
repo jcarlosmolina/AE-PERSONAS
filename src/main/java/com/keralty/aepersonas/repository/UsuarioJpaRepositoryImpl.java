@@ -2717,6 +2717,9 @@ public class UsuarioJpaRepositoryImpl extends AbstractRepository implements Usua
     public Collection<PreexistenciaC> assocOperator070(Usuario usuarioTACTDESDECOREpthisUsuario, BeneficiarioC usuarioTACTDESDECOREpBeneficiarioC) throws SystemException {
         try {
             // FOR ALL pBeneficiarioC.PersonaC.PreexistenciasC DO Preexistencias.crear(this, pBeneficiarioC.PersonaC.PreexistenciasC.Descripcion, pBeneficiarioC.PersonaC.PreexistenciasC.FecInicio, pBeneficiarioC.PersonaC.PreexistenciasC.FecFin, pBeneficiarioC.PersonaC.PreexistenciasC.Observacion)
+        	if (usuarioTACTDESDECOREpthisUsuario == null) {
+        		throw new IllegalArgumentException("usuarioTACTDESDECOREpthisUsuario cannot be null");
+        	}
         return assocOperator070Range1(usuarioTACTDESDECOREpBeneficiarioC);
         } catch (Exception e) {
             String exceptionMessage = "Definition Class: Usuario, Assoc.Operator: AssocOperator070, Method: assocOperator070";
